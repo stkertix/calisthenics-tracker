@@ -7,29 +7,30 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 ## Struktur
 
 ```
-├── app/
-│   └── index.html     # App tunggal (HTML + CSS + JS)
+├── index.html     # App tunggal (HTML + CSS + JS)
 ├── .gitignore
 └── README.md
 ```
+
+Sumber lokal (di-ignore, tidak di-commit): `.resources/`
 
 ## Menjalankan
 
 Tidak perlu install apa pun.
 
 ```bash
-open app/index.html
+open index.html
 ```
 
-Atau buka `app/index.html` di browser.
+Atau buka `index.html` di browser.
 
 ### Di HP
 
-1. Salin `app/index.html` ke HP (AirDrop, Files, Drive, dll.)
+1. Salin `index.html` ke HP (AirDrop, Files, Drive, dll.)
 2. Buka di Safari atau Chrome
 3. Opsional: **Add to Home Screen** agar seperti app
 
-Progress tersimpan di `localStorage` browser perangkat itu. Hapus data situs = progress hilang.
+Progress tersimpan di `localStorage` browser perangkat itu. Hapus data situs = progress hilang. Reset juga tersedia di tab Log.
 
 ## Fitur
 
@@ -38,7 +39,7 @@ Progress tersimpan di `localStorage` browser perangkat itu. Hapus data situs = p
 | **Jalur**  | Pilih Push / Pull / Squat / Muscle-up, lihat level, mulai sesi |
 | **Sesi**   | Checklist gerakan, set/rep, timer istirahat, catatan           |
 | **Jadwal** | Pola mingguan (stack / split / triplet) + baseline muscle-up   |
-| **Log**    | Riwayat sesi                                                   |
+| **Log**    | Riwayat sesi + reset data                                      |
 
 Lainnya:
 
@@ -46,7 +47,8 @@ Lainnya:
 - Deskripsi + cues form per gerakan (dilipat agar hemat scroll)
 - Rantai progresi & pengaturan level dilipat
 - Navigasi bawah, tombol utama sticky
-- Status jalur/level di pojok atas (tanpa logo brand)
+- Status jalur/level di pojok atas
+- Timer istirahat (+30s / selesai)
 
 ## Jalur latihan
 
@@ -59,7 +61,7 @@ Lainnya:
 
 Prinsip: latihan 2–3×/minggu per skill, istirahat ≥48 jam, gerakan terberat dulu, jangan loncat level.
 
-Detail progresi (lokal, tidak di-commit): `.book/ringkasan-program-latihan.md`
+Detail progresi (lokal, tidak di-commit): `.resources/ringkasan-program-latihan.md`
 
 ## Catatan
 

@@ -1,8 +1,11 @@
 /* Calisthenics Tracker — service worker (GitHub Pages–friendly relative URLs) */
-const CACHE = "calisthenics-tracker-v1";
+const CACHE = "calisthenics-tracker-v2";
 const ASSETS = [
   "./",
   "./index.html",
+  "./styles.css",
+  "./app.js",
+  "./data/catalog.json",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png",

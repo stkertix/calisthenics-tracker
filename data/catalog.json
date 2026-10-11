@@ -1,0 +1,1167 @@
+{
+  "moveGuide": {
+    "plank hold": {
+      "desc": "Tahan posisi tubuh lurus seperti papan untuk melatih core, bahu, dan glute. Fondasi kontrol tubuh sebelum push-up.",
+      "cues": [
+        "Badan satu garis kepala-tumit",
+        "Scapula protracted (dorong lantai)",
+        "Jangan biarkan pinggang melorot atau naik (pike)"
+      ]
+    },
+    "scapula push-ups": {
+      "desc": "Lengan tetap lurus; gerakan hanya dari shoulder blade. Melatih stabilitas bahu untuk push-up yang aman.",
+      "cues": [
+        "Lengan terkunci lurus",
+        "Retraksi lalu protraksi scapula",
+        "Core tetap kencang"
+      ]
+    },
+    "negative push-ups": {
+      "desc": "Fokus fase turun (eksentrik) secara lambat untuk membangun kekuatan sebelum push-up penuh.",
+      "cues": [
+        "Turun 3-5 detik merata",
+        "Dada mendekati lantai dengan kontrol",
+        "Naik boleh dibantu lutut / dorong ke atas"
+      ]
+    },
+    "normal push-ups": {
+      "desc": "Push-up standar: tubuh lurus, tangan selebar bahu. Gerakan dasar kekuatan dorong tubuh.",
+      "cues": [
+        "Siku ~45° dari badan",
+        "Core & glute aktif",
+        "Dada hampir menyentuh lantai"
+      ]
+    },
+    "wide push-ups": {
+      "desc": "Tangan lebih lebar dari bahu untuk menekankan dada dan bahu depan.",
+      "cues": [
+        "Tangan lebih lebar dari bahu",
+        "Jaga garis tubuh",
+        "Jangan biarkan bahu collaps"
+      ]
+    },
+    "diamond push-ups": {
+      "desc": "Tangan rapat membentuk 'berlian'; beban lebih ke trisep dan dada dalam.",
+      "cues": [
+        "Ibu jari & telunjuk saling dekat",
+        "Siku mendekat ke tubuh",
+        "Core tetap kencang"
+      ]
+    },
+    "tricep extensions": {
+      "desc": "Variasi dorong yang menekankan ekstensi siku untuk memperkuat trisep sebagai pendukung OAPU.",
+      "cues": [
+        "Gerakan dari siku, bukan bahu",
+        "ROM penuh yang nyaman",
+        "Jaga tulang belakang netral"
+      ]
+    },
+    "explosive push-ups": {
+      "desc": "Push-up eksplosif untuk power. Dorong keras hingga tangan lepas / clap jika mampu.",
+      "cues": [
+        "Turun terkontrol, dorong cepat",
+        "Mendarat dengan siku sedikit tekuk",
+        "Mulai tanpa clap jika perlu"
+      ]
+    },
+    "archer push-ups": {
+      "desc": "Satu lengan bekerja lebih berat sementara lengan lain melurus; jembatan menuju one-arm push-up.",
+      "cues": [
+        "Beban di lengan yang menekuk",
+        "Lengan 'bow' hampir lurus",
+        "Ganti sisi merata"
+      ]
+    },
+    "one-arm push-ups": {
+      "desc": "Push-up satu lengan. Stance kaki lebar membantu balance; core harus sangat stabil.",
+      "cues": [
+        "Kaki lebar untuk stabilitas",
+        "Bahu relatif sejajar (miring sedikit OK)",
+        "Hindari rotasi berlebih"
+      ]
+    },
+    "warm-up: band pull-aparts / pull-downs": {
+      "desc": "Pemanasan bahu & punggung dengan band: pull-apart overhead/horizontal dan pull-down.",
+      "cues": [
+        "Bahu turun, jangan shrug",
+        "Kontrol tarikan & kembali",
+        "Band ringan, fokus aktivasi"
+      ]
+    },
+    "bent-over rows": {
+      "desc": "Tarikan horizontal (barbell/band) untuk membangun kekuatan punggung sebelum pull-up.",
+      "cues": [
+        "Punggung netral, hing hing",
+        "Tarik ke tulang rusuk bawah",
+        "Scapula retraksi di puncak"
+      ]
+    },
+    "passive hang": {
+      "desc": "Gantung santai dengan lengan lurus untuk grip, bahu, dan toleransi hang.",
+      "cues": [
+        "Pakai semua jari termasuk kelingking",
+        "Bahu rileks (active/passive sesuai tujuan)",
+        "Kaki rileks, napas tenang"
+      ]
+    },
+    "scapula pull-ups": {
+      "desc": "Dari dead hang, gerakkan hanya scapula (retraction + depression) tanpa menekuk siku.",
+      "cues": [
+        "Lengan tetap lurus",
+        "Tarik bahu ke bawah-belakang",
+        "Kontrol turun ke hang pasif"
+      ]
+    },
+    "australian pull-ups": {
+      "desc": "Inverted row di bar rendah. Semakin horizontal tubuh, semakin sulit.",
+      "cues": [
+        "Badan lurus seperti papan",
+        "Tarik dada ke bar",
+        "Atur sudut kaki untuk progresi"
+      ]
+    },
+    "negative pull-ups": {
+      "desc": "Mulai di atas bar, turun lambat ke hang. Membangun kekuatan eksentrik menuju pull-up.",
+      "cues": [
+        "Turun 5-10 detik",
+        "Kontrol sepanjang ROM",
+        "Naik bisa lompat / step-up"
+      ]
+    },
+    "band-assisted pull-ups": {
+      "desc": "Pull-up dengan bantuan resistance band. Kurangi ketebalan band seiring kuat.",
+      "cues": [
+        "Dead hang penuh di bawah",
+        "Tarik dada ke bar",
+        "Jangan kick berlebihan"
+      ]
+    },
+    "pull-ups": {
+      "desc": "Pull-up penuh dari dead hang hingga dagu melewati bar, dengan kontrol.",
+      "cues": [
+        "Mulai dead hang",
+        "Core kencang (hindari swing besar)",
+        "Turun penuh tiap rep"
+      ]
+    },
+    "australian + scapula (superset)": {
+      "desc": "Superset: Australian pull-up lalu scapula pull-up tanpa istirahat antar keduanya.",
+      "cues": [
+        "Australian dulu untuk volume",
+        "Scapula untuk kontrol bahu",
+        "Istirahat hanya setelah keduanya"
+      ]
+    },
+    "bodyweight squats": {
+      "desc": "Squat dua kaki standar untuk pola gerak, volume, dan daya tahan kaki.",
+      "cues": [
+        "Beban di tengah kaki (lebih ke tumit)",
+        "Lutut sejajar jari kaki",
+        "Dada tetap terbuka"
+      ]
+    },
+    "narrow-stance squats": {
+      "desc": "Squat dengan stance sempit untuk menuntut kontrol balance dan mobilitas lebih tinggi.",
+      "cues": [
+        "Kaki lebih rapat dari biasa",
+        "Jaga tumit mentok lantai",
+        "Turun terkontrol"
+      ]
+    },
+    "deep squats": {
+      "desc": "Squat dalam (di bawah parallel) untuk ROM dan kekuatan di posisi rendah. Jika kaku, utamakan mobility.",
+      "cues": [
+        "Turun sedalam yang aman",
+        "Punggung tidak melengkung ekstrem",
+        "Bisa pegang beban ringan untuk counterbalance"
+      ]
+    },
+    "bulgarian split squats": {
+      "desc": "Squat satu kaki dengan kaki belakang di elevasi. Melatih kekuatan unilateral.",
+      "cues": [
+        "Mayoritas beban di kaki depan (~90%)",
+        "Lutut depan mengikuti jari kaki",
+        "Badan sedikit condong ke depan OK"
+      ]
+    },
+    "cossack squats": {
+      "desc": "Squat lateral ke satu sisi dengan kaki lain lurus. Melatih ROM pinggul dan kekuatan samping.",
+      "cues": [
+        "Turun ke satu sisi penuh",
+        "Kaki lain tetap lurus / tumit boleh angkat",
+        "Ganti sisi merata"
+      ]
+    },
+    "pistol easier variant (box / assisted / eccentric)": {
+      "desc": "Variasi lebih mudah menuju pistol: box pistol, dibantu pegangan, atau turun eksentrik lambat.",
+      "cues": [
+        "Pilih variasi yang formnya bersih",
+        "Lutut tidak collapse ke dalam",
+        "Kaki bebas tidak menyentuh lantai"
+      ]
+    },
+    "pistol easier variant": {
+      "desc": "Variasi pistol yang dimudahkan (box / assisted / eccentric) untuk volume setelah attempt penuh.",
+      "cues": [
+        "Kualitas lebih penting dari kedalaman ekstrem",
+        "Tekanan kaki merata (jari-tumit)",
+        "Hindari knee valgus"
+      ]
+    },
+    "pistol squats": {
+      "desc": "Squat satu kaki penuh dengan kaki lain terangkat. Butuh kekuatan, balance, dan mobilitas.",
+      "cues": [
+        "Lengan ke depan untuk balance",
+        "Turun & naik terkontrol",
+        "Kaki bebas tidak menyentuh lantai"
+      ]
+    },
+    "standard pull-ups": {
+      "desc": "Pull-up bersih sebagai fondasi tinggi tarikan untuk muscle-up.",
+      "cues": [
+        "Rep bersih > volume longgar",
+        "Hollow body membantu stabilitas",
+        "Full hang tiap rep"
+      ]
+    },
+    "chest-to-bar / high pull-ups": {
+      "desc": "Tarik hingga dada mendekati / menyentuh bar. Melatih tinggi yang dibutuhkan untuk transisi muscle-up.",
+      "cues": [
+        "Tarik eksplosif ke atas",
+        "Dada ke bar, bukan hanya dagu",
+        "Turun terkontrol"
+      ]
+    },
+    "high / chest-to-bar pull-ups": {
+      "desc": "Variasi high pull untuk menghubungkan power pull dengan zona transisi.",
+      "cues": [
+        "Momentum tetap ke atas, bukan ke belakang",
+        "Wajah menghadap depan",
+        "Kaki rapat, hindari kick berlebih"
+      ]
+    },
+    "high pull-ups": {
+      "desc": "Pull eksplosif setinggi mungkin di atas garis dada untuk membuka ruang flip.",
+      "cues": [
+        "Power di awal tarikan",
+        "Bar dekat ke tubuh",
+        "Latihan juga dengan jumping pull-up jika perlu"
+      ]
+    },
+    "explosive pull-ups (high)": {
+      "desc": "Pull-up eksplosif dengan target tinggi maksimal sebelum mencoba muscle-up penuh.",
+      "cues": [
+        "Dead hang → tarik cepat",
+        "Usahakan sternum ke bar",
+        "Kualitas tiap rep"
+      ]
+    },
+    "band-assisted dips": {
+      "desc": "Dip di bar/parallel dengan bantuan band untuk membangun kekuatan dorong di atas bar.",
+      "cues": [
+        "Lutut tetap extended pada band",
+        "Turun hingga bahu ~ setinggi siku",
+        "Jangan shrug berlebih"
+      ]
+    },
+    "negative dips": {
+      "desc": "Fase turun dip secara lambat untuk kekuatan di posisi bawah (titik kritis muscle-up).",
+      "cues": [
+        "Turun 3-5+ detik",
+        "Usahakan lebih dalam dari parallel",
+        "Naik boleh dibantu"
+      ]
+    },
+    "straight bar dips": {
+      "desc": "Dip di satu bar lurus; tubuh bergeser dari condong ke tegak. Spesifik untuk finish muscle-up.",
+      "cues": [
+        "Mulai dari support di atas bar",
+        "Turun dalam, press ke atas tall",
+        "Bar dekat ke tubuh"
+      ]
+    },
+    "straight bar dips (deep)": {
+      "desc": "Straight bar dip dengan penekanan kedalaman bahu mendekati bar.",
+      "cues": [
+        "Bahu mendekati bar di bawah",
+        "Press full lockout",
+        "Kontrol, bukan bounce"
+      ]
+    },
+    "bar lean-overs": {
+      "desc": "Drill transisi: condongkan dada melewati bar dan latih 'flip' pergelangan / posisi siku di atas bar.",
+      "cues": [
+        "Mulai dari negative lean jika perlu",
+        "Dada ke depan atas bar",
+        "Hindari chicken-wing satu sisi"
+      ]
+    },
+    "bar lean-overs / assisted muscle-up": {
+      "desc": "Gabungan drill lean-over dan muscle-up dibantu (band/lompat) untuk menyambung pull-flip-press.",
+      "cues": [
+        "Tinggi pull dulu, baru flip",
+        "Tekan ke bawah pada bar",
+        "Satu rangkaian mulus"
+      ]
+    },
+    "jumping / band-assisted muscle-ups": {
+      "desc": "Muscle-up dengan lompatan atau band agar pola gerak penuh terlatih sebelum kekuatan murni cukup.",
+      "cues": [
+        "Swing/hollow → pull → flip → press",
+        "Bantuan seminimal mungkin",
+        "Full stretch di bawah untuk power"
+      ]
+    },
+    "hollow body hold": {
+      "desc": "Tahan posisi hollow (punggung bawah ke lantai, kaki & bahu sedikit angkat) untuk core muscle-up.",
+      "cues": [
+        "Lower back menempel lantai",
+        "Tulang rusuk turun",
+        "Napas tetap mengalir"
+      ]
+    },
+    "hanging leg raise": {
+      "desc": "Angkat kaki dari hang untuk core kompresi dan kontrol tubuh di bar.",
+      "cues": [
+        "Minimal swing",
+        "Progress: tuck → straight",
+        "Scapula stabil saat angkat"
+      ]
+    },
+    "hollow + hanging leg raise": {
+      "desc": "Finisher core: hollow hold dilanjut hanging leg raise.",
+      "cues": [
+        "Hollow berkualitas dulu",
+        "HLR tanpa mengayun liar",
+        "Istirahat setelah keduanya"
+      ]
+    },
+    "core finisher (hollow / hlr)": {
+      "desc": "Penutup sesi: hollow hold dan/atau hanging leg raise untuk stamina core.",
+      "cues": [
+        "Form > jumlah",
+        "Jaga hang aktif",
+        "Akhiri sebelum form rusak"
+      ]
+    },
+    "muscle-up attempts (quality)": {
+      "desc": "Attempt muscle-up penuh dengan fokus kualitas: swing/hollow → pull keras → lean/flip → press tall.",
+      "cues": [
+        "Jangan kejar volume jelek",
+        "Reset tiap attempt",
+        "Jika gagal, perbaiki fase yang pecah"
+      ]
+    }
+  },
+  "programs": {
+    "push": {
+      "id": "push",
+      "name": "Push",
+      "goal": "One-Arm Push-Up",
+      "blurb": "Dari plank & negative hingga OAPU.",
+      "maxLevel": 5,
+      "chain": [
+        "Plank hold",
+        "Scapula push-ups",
+        "Negative push-ups",
+        "Normal push-ups",
+        "Wide push-ups",
+        "Diamond push-ups",
+        "Tricep extensions",
+        "Explosive push-ups",
+        "Archer push-ups",
+        "One-arm push-ups"
+      ],
+      "levels": {
+        "1": {
+          "focus": "Negative + normal + plank",
+          "advance": "Selesaikan negative ≈8 rep dengan kontrol.",
+          "exercises": [
+            {
+              "name": "Negative push-ups",
+              "sets": 3,
+              "reps": "8",
+              "tempo": "4s turun",
+              "rest": 120,
+              "note": "Turun 3-5 detik, form lurus."
+            },
+            {
+              "name": "Normal push-ups",
+              "sets": 3,
+              "reps": "sebisanya",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Plank hold",
+              "sets": 3,
+              "reps": "30-60s",
+              "tempo": "hold",
+              "rest": 90
+            }
+          ]
+        },
+        "2": {
+          "focus": "Normal + diamond + plank",
+          "advance": "≈12 normal push-up form bersih.",
+          "exercises": [
+            {
+              "name": "Normal push-ups",
+              "sets": 3,
+              "reps": "12",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Diamond push-ups",
+              "sets": 3,
+              "reps": "8-10",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Plank hold",
+              "sets": 3,
+              "reps": "60s",
+              "tempo": "hold",
+              "rest": 90
+            }
+          ]
+        },
+        "3": {
+          "focus": "Wide / diamond / explosive",
+          "advance": "Selesaikan semua set/rep level ini.",
+          "exercises": [
+            {
+              "name": "Wide push-ups",
+              "sets": 3,
+              "reps": "8-10",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Diamond push-ups",
+              "sets": 3,
+              "reps": "10-12",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Explosive push-ups",
+              "sets": 3,
+              "reps": "6",
+              "tempo": "1010",
+              "rest": 120
+            },
+            {
+              "name": "Tricep extensions",
+              "sets": 3,
+              "reps": "8",
+              "tempo": "2-0-1-0",
+              "rest": 90
+            }
+          ]
+        },
+        "4": {
+          "focus": "Archer + volume + plank 60s",
+          "advance": "Set/rep selesai + plank 1 menit bersih.",
+          "exercises": [
+            {
+              "name": "Archer push-ups",
+              "sets": 3,
+              "reps": "4 / lengan",
+              "tempo": "2-0-1-0",
+              "rest": 150
+            },
+            {
+              "name": "Diamond push-ups",
+              "sets": 3,
+              "reps": "10",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Normal push-ups",
+              "sets": 3,
+              "reps": "10",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Plank hold",
+              "sets": 3,
+              "reps": "60s",
+              "tempo": "hold",
+              "rest": 90
+            }
+          ]
+        },
+        "5": {
+          "focus": "One-arm push-ups (fokus utama)",
+          "advance": "Selesaikan routine; naikkan rep OAPU bertahap.",
+          "exercises": [
+            {
+              "name": "One-arm push-ups",
+              "sets": 4,
+              "reps": "2-5 / lengan",
+              "tempo": "2-0-1-0",
+              "rest": 180
+            },
+            {
+              "name": "Archer push-ups",
+              "sets": 3,
+              "reps": "4 / lengan",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Diamond push-ups",
+              "sets": 3,
+              "reps": "8",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Plank hold",
+              "sets": 2,
+              "reps": "60s",
+              "tempo": "hold",
+              "rest": 90
+            }
+          ]
+        }
+      }
+    },
+    "pull": {
+      "id": "pull",
+      "name": "Pull",
+      "goal": "Pull-Up bersih",
+      "blurb": "Hang, row, assisted, hingga pull-up penuh.",
+      "maxLevel": 5,
+      "chain": [
+        "Bent-over rows",
+        "Passive hang",
+        "Scapula pull-ups",
+        "Australian pull-ups",
+        "Negative pull-ups",
+        "Band-assisted pull-ups",
+        "Pull-ups"
+      ],
+      "warmup": [
+        "Banded overhead pull-aparts",
+        "Banded horizontal pull-aparts",
+        "Banded pull-downs"
+      ],
+      "levels": {
+        "1": {
+          "focus": "Rows + passive hang",
+          "advance": "Row ≈30-40 kg sesuai set/rep + hang ~60s.",
+          "exercises": [
+            {
+              "name": "Warm-up: band pull-aparts / pull-downs",
+              "sets": 2,
+              "reps": "12-15",
+              "tempo": "smooth",
+              "rest": 45
+            },
+            {
+              "name": "Bent-over rows",
+              "sets": 3,
+              "reps": "12-15",
+              "tempo": "2-0-1-0",
+              "rest": 180
+            },
+            {
+              "name": "Passive hang",
+              "sets": 3,
+              "reps": "30-60s",
+              "tempo": "hold",
+              "rest": 90
+            }
+          ]
+        },
+        "2": {
+          "focus": "Australian + scapula",
+          "advance": "Australian hampir horizontal, set/rep terpenuhi.",
+          "exercises": [
+            {
+              "name": "Australian pull-ups",
+              "sets": 3,
+              "reps": "10-12",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Scapula pull-ups",
+              "sets": 3,
+              "reps": "10-12",
+              "tempo": "2-0-1-0",
+              "rest": 90
+            },
+            {
+              "name": "Passive hang",
+              "sets": 2,
+              "reps": "45-60s",
+              "tempo": "hold",
+              "rest": 90
+            }
+          ]
+        },
+        "3": {
+          "focus": "Band-assisted + Australian + scapula",
+          "advance": "Band tipis (~10 kg) masih cukup untuk target.",
+          "exercises": [
+            {
+              "name": "Band-assisted pull-ups",
+              "sets": 3,
+              "reps": "6-8",
+              "tempo": "2-0-1-0",
+              "rest": 150
+            },
+            {
+              "name": "Australian pull-ups",
+              "sets": 3,
+              "reps": "10-12",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Scapula pull-ups",
+              "sets": 3,
+              "reps": "10-12",
+              "tempo": "2-0-1-0",
+              "rest": 90
+            }
+          ]
+        },
+        "4": {
+          "focus": "Negative panjang + assisted",
+          "advance": "5× negative ~10 detik → siap pull-up penuh.",
+          "exercises": [
+            {
+              "name": "Negative pull-ups",
+              "sets": 5,
+              "reps": "1",
+              "tempo": "8-10s turun",
+              "rest": 90
+            },
+            {
+              "name": "Band-assisted pull-ups",
+              "sets": 3,
+              "reps": "6-8",
+              "tempo": "2-0-1-0",
+              "rest": 150
+            },
+            {
+              "name": "Australian pull-ups",
+              "sets": 3,
+              "reps": "8-10",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Passive hang",
+              "sets": 2,
+              "reps": "30s",
+              "tempo": "hold",
+              "rest": 60
+            }
+          ]
+        },
+        "5": {
+          "focus": "Pull-ups + volume pendukung",
+          "advance": "Naikkan volume bertahap (mis. 3×3 → 3×4).",
+          "exercises": [
+            {
+              "name": "Pull-ups",
+              "sets": 5,
+              "reps": "2-5",
+              "tempo": "2-0-1-0",
+              "rest": 180
+            },
+            {
+              "name": "Band-assisted pull-ups",
+              "sets": 3,
+              "reps": "8-10",
+              "tempo": "2-0-1-0",
+              "rest": 150
+            },
+            {
+              "name": "Australian + scapula (superset)",
+              "sets": 3,
+              "reps": "8 + 8",
+              "tempo": "2-0-1-0",
+              "rest": 150
+            },
+            {
+              "name": "Passive hang",
+              "sets": 2,
+              "reps": "30-45s",
+              "tempo": "hold",
+              "rest": 60
+            }
+          ]
+        }
+      }
+    },
+    "squat": {
+      "id": "squat",
+      "name": "Squat",
+      "goal": "Pistol Squat",
+      "blurb": "Bilateral → unilateral → pistol penuh.",
+      "maxLevel": 5,
+      "chain": [
+        "Bodyweight squats",
+        "Narrow-stance squats",
+        "Deep squats",
+        "Bulgarian split squats",
+        "Cossack squats",
+        "Pistol easier variants",
+        "Pistol squats"
+      ],
+      "levels": {
+        "1": {
+          "focus": "Narrow + deep + BW squat",
+          "advance": "Routine selesai. Deep sulit? Fokus mobility dulu.",
+          "exercises": [
+            {
+              "name": "Narrow-stance squats",
+              "sets": 3,
+              "reps": "12",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Deep squats",
+              "sets": 3,
+              "reps": "12",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Bodyweight squats",
+              "sets": 3,
+              "reps": "15",
+              "tempo": "2-0-1-0",
+              "rest": 90
+            }
+          ]
+        },
+        "2": {
+          "focus": "Bulgarian + deep / narrow",
+          "advance": "≈6 Bulgarian split squat per kaki.",
+          "exercises": [
+            {
+              "name": "Bulgarian split squats",
+              "sets": 3,
+              "reps": "6 / kaki",
+              "tempo": "3010",
+              "rest": 150
+            },
+            {
+              "name": "Deep squats",
+              "sets": 3,
+              "reps": "10",
+              "tempo": "3010",
+              "rest": 120
+            },
+            {
+              "name": "Narrow-stance squats",
+              "sets": 3,
+              "reps": "10",
+              "tempo": "2-0-1-0",
+              "rest": 90
+            }
+          ]
+        },
+        "3": {
+          "focus": "Cossack + Bulgarian + deep",
+          "advance": "≈6 Cossack per sisi + sisa workout.",
+          "exercises": [
+            {
+              "name": "Cossack squats",
+              "sets": 3,
+              "reps": "6 / sisi",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Bulgarian split squats",
+              "sets": 3,
+              "reps": "8 / kaki",
+              "tempo": "2-0-1-0",
+              "rest": 150
+            },
+            {
+              "name": "Deep squats",
+              "sets": 3,
+              "reps": "10-12",
+              "tempo": "3010",
+              "rest": 120
+            }
+          ]
+        },
+        "4": {
+          "focus": "Variasi pistol mudah + unilateral",
+          "advance": "≈10 rep variasi mudah (atau eccentric ~4s) → coba pistol.",
+          "exercises": [
+            {
+              "name": "Pistol easier variant (box / assisted / eccentric)",
+              "sets": 3,
+              "reps": "8-10 / kaki",
+              "tempo": "3010 / 4s",
+              "rest": 120
+            },
+            {
+              "name": "Cossack squats",
+              "sets": 3,
+              "reps": "8 / sisi",
+              "tempo": "2-0-1-0",
+              "rest": 100
+            },
+            {
+              "name": "Bulgarian split squats",
+              "sets": 3,
+              "reps": "10 / kaki",
+              "tempo": "2-0-1-0",
+              "rest": 120
+            },
+            {
+              "name": "Deep squats",
+              "sets": 2,
+              "reps": "12",
+              "tempo": "3010",
+              "rest": 100
+            }
+          ]
+        },
+        "5": {
+          "focus": "Pistol + volume pendukung",
+          "advance": "Target bertahap hingga ~8 pistol per kaki.",
+          "exercises": [
+            {
+              "name": "Pistol squats",
+              "sets": 3,
+              "reps": "3-8 / kaki",
+              "tempo": "2020",
+              "rest": 150
+            },
+            {
+              "name": "Pistol easier variant",
+              "sets": 2,
+              "reps": "6 / kaki",
+              "tempo": "3010",
+              "rest": 120
+            },
+            {
+              "name": "Cossack squats",
+              "sets": 3,
+              "reps": "8 / sisi",
+              "tempo": "2-0-1-0",
+              "rest": 100
+            },
+            {
+              "name": "Deep squats",
+              "sets": 3,
+              "reps": "10",
+              "tempo": "3010",
+              "rest": 100
+            }
+          ]
+        }
+      }
+    },
+    "muscleup": {
+      "id": "muscleup",
+      "name": "Muscle-up",
+      "goal": "Bar muscle-up bersih",
+      "blurb": "Pull → flip → push. Weekly L1-3 atau 5-level routine.",
+      "maxLevel": 5,
+      "chain": [
+        "Standard pull-ups",
+        "Chest-to-bar / high pull-ups",
+        "Band-assisted dips",
+        "Negative / straight bar dips",
+        "Bar lean-overs",
+        "Assisted / jumping muscle-ups",
+        "Hollow + hanging leg raise",
+        "Full muscle-up"
+      ],
+      "levels": {
+        "1": {
+          "focus": "Base — kekuatan & kontrol dasar",
+          "advance": "Form bersih di semua gerakan; siap naik jika pull & dip stabil.",
+          "exercises": [
+            {
+              "name": "Standard pull-ups",
+              "sets": 5,
+              "reps": "3-5",
+              "tempo": "31X1",
+              "rest": 90
+            },
+            {
+              "name": "Band-assisted dips",
+              "sets": 4,
+              "reps": "6-8",
+              "tempo": "2121",
+              "rest": 60
+            },
+            {
+              "name": "Bar lean-overs",
+              "sets": 4,
+              "reps": "6",
+              "tempo": "2121",
+              "rest": 45
+            },
+            {
+              "name": "Hollow body hold",
+              "sets": 4,
+              "reps": "20s",
+              "tempo": "hold",
+              "rest": 30
+            },
+            {
+              "name": "Plank hold",
+              "sets": 3,
+              "reps": "40s",
+              "tempo": "hold",
+              "rest": 30
+            }
+          ]
+        },
+        "2": {
+          "focus": "Explosive pull + transisi",
+          "advance": "Chest-to-bar / high pull terasa; dip lebih dalam.",
+          "exercises": [
+            {
+              "name": "Chest-to-bar / high pull-ups",
+              "sets": 5,
+              "reps": "3-5",
+              "tempo": "20X1",
+              "rest": 90
+            },
+            {
+              "name": "Negative dips",
+              "sets": 4,
+              "reps": "5-6",
+              "tempo": "4010",
+              "rest": 60
+            },
+            {
+              "name": "Band-assisted dips",
+              "sets": 3,
+              "reps": "8",
+              "tempo": "2121",
+              "rest": 60
+            },
+            {
+              "name": "Bar lean-overs",
+              "sets": 4,
+              "reps": "6",
+              "tempo": "2121",
+              "rest": 45
+            },
+            {
+              "name": "Hollow body hold",
+              "sets": 4,
+              "reps": "30-40s",
+              "tempo": "hold",
+              "rest": 30
+            }
+          ]
+        },
+        "3": {
+          "focus": "Knocking — timing & flip",
+          "advance": "Hubungkan pull-flip-press di bawah fatigue.",
+          "exercises": [
+            {
+              "name": "High / chest-to-bar pull-ups",
+              "sets": 5,
+              "reps": "4-5",
+              "tempo": "20X1",
+              "rest": 90
+            },
+            {
+              "name": "Straight bar dips",
+              "sets": 4,
+              "reps": "6-8",
+              "tempo": "2121",
+              "rest": 75
+            },
+            {
+              "name": "Bar lean-overs / assisted muscle-up",
+              "sets": 4,
+              "reps": "4-6",
+              "tempo": "controlled",
+              "rest": 60
+            },
+            {
+              "name": "Hanging leg raise",
+              "sets": 3,
+              "reps": "8-10",
+              "tempo": "2-0-1-0",
+              "rest": 45
+            },
+            {
+              "name": "Hollow body hold",
+              "sets": 3,
+              "reps": "30s",
+              "tempo": "hold",
+              "rest": 30
+            }
+          ]
+        },
+        "4": {
+          "focus": "5-level routine — hampir utuh",
+          "advance": "Semua gerakan selesai form baik, tanpa rest ekstra.",
+          "exercises": [
+            {
+              "name": "Explosive pull-ups (high)",
+              "sets": 5,
+              "reps": "3-4",
+              "tempo": "X",
+              "rest": 120
+            },
+            {
+              "name": "Straight bar dips (deep)",
+              "sets": 4,
+              "reps": "8-10",
+              "tempo": "2121",
+              "rest": 90
+            },
+            {
+              "name": "Jumping / band-assisted muscle-ups",
+              "sets": 5,
+              "reps": "2-4",
+              "tempo": "smooth",
+              "rest": 120
+            },
+            {
+              "name": "Bar lean-overs",
+              "sets": 3,
+              "reps": "6",
+              "tempo": "2121",
+              "rest": 45
+            },
+            {
+              "name": "Hollow + hanging leg raise",
+              "sets": 3,
+              "reps": "30s + 8",
+              "tempo": "mix",
+              "rest": 45
+            }
+          ]
+        },
+        "5": {
+          "focus": "Siap attempt muscle-up",
+          "advance": "Level 5 bersih ≈ attempt pertama yang rapi.",
+          "exercises": [
+            {
+              "name": "Muscle-up attempts (quality)",
+              "sets": 6,
+              "reps": "1-2",
+              "tempo": "full sequence",
+              "rest": 150
+            },
+            {
+              "name": "High pull-ups",
+              "sets": 3,
+              "reps": "4",
+              "tempo": "20X1",
+              "rest": 90
+            },
+            {
+              "name": "Straight bar dips",
+              "sets": 3,
+              "reps": "8",
+              "tempo": "2121",
+              "rest": 75
+            },
+            {
+              "name": "Core finisher (hollow / HLR)",
+              "sets": 3,
+              "reps": "30s / 10",
+              "tempo": "hold",
+              "rest": 40
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schedules": [
+    {
+      "id": "stack",
+      "title": "Stack",
+      "desc": "Satu sesi: Push → Pull → Squat. ~1-1,5 jam. Skill prioritas dikerjakan pertama.",
+      "week": [
+        "Push+Pull+Squat",
+        "Istirahat",
+        "Push+Pull+Squat",
+        "Istirahat",
+        "Push+Pull+Squat",
+        "Istirahat",
+        "Istirahat"
+      ]
+    },
+    {
+      "id": "split",
+      "title": "One day, one routine",
+      "desc": "Senin Push, Selasa Pull, Rabu Squat, ulangi; Minggu istirahat. Sesi ~30 menit.",
+      "week": [
+        "Push",
+        "Pull",
+        "Squat",
+        "Push",
+        "Pull",
+        "Squat",
+        "Istirahat"
+      ]
+    },
+    {
+      "id": "triplet",
+      "title": "Triplet antagonis",
+      "desc": "Push + Pull + Squat bergantian, rest ~40s. Sesi ~30-45 menit.",
+      "week": [
+        "Triplet PPS",
+        "Istirahat",
+        "Triplet PPS",
+        "Istirahat",
+        "Triplet PPS",
+        "Opsional",
+        "Istirahat"
+      ]
+    }
+  ],
+  "baseline": [
+    {
+      "id": "pu10",
+      "label": "~10 pull-up bersih"
+    },
+    {
+      "id": "ctb5",
+      "label": "~5 chest-to-bar (bonus)"
+    },
+    {
+      "id": "dip10",
+      "label": "~10 straight bar dips dalam"
+    },
+    {
+      "id": "hollow30",
+      "label": "Hollow body hold ~30s"
+    },
+    {
+      "id": "hlr10",
+      "label": "~10 hanging leg raise"
+    }
+  ],
+  "days": [
+    "Sen",
+    "Sel",
+    "Rab",
+    "Kam",
+    "Jum",
+    "Sab",
+    "Min"
+  ]
+}

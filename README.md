@@ -7,11 +7,15 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 ## Struktur
 
 ```
-├── index.html              # App (HTML + CSS + JS)
+├── index.html              # Shell HTML
+├── styles.css              # Styles
+├── app.js                  # Logika app + storage/PWA
+├── data/
+│   └── catalog.json        # MOVE guide, program, jadwal, baseline
 ├── manifest.webmanifest    # Metadata PWA
 ├── sw.js                   # Service worker (offline shell)
 ├── icons/
-│   ├── icon-180.png        # Apple touch icon
+│   ├── icon-180.png
 │   ├── icon-192.png
 │   └── icon-512.png
 ├── .gitignore
@@ -22,13 +26,7 @@ Lokal (di-ignore): `.resources/` — ringkasan progresi & sumber OCR.
 
 ## Menjalankan lokal
 
-Buka file langsung:
-
-```bash
-open index.html
-```
-
-Untuk menguji PWA (service worker butuh HTTP):
+Karena data & script di-load via `fetch`, jalankan lewat HTTP (bukan `file://`):
 
 ```bash
 python3 -m http.server 8080
@@ -76,18 +74,20 @@ Lainnya:
 
 Prinsip: latihan 2–3×/minggu per skill, istirahat ≥48 jam, gerakan terberat dulu, jangan loncat level.
 
+Update konten program: edit `data/catalog.json` (lalu naikkan `SCHEMA_VERSION` di `app.js` jika bentuk data berubah).
+
 ## Penyimpanan data
 
 Progress di `localStorage` perangkat (per origin/browser). Hapus data situs = progress hilang. Reset ada di tab Log.
 
-| Key            | Isi                                  |
-| -------------- | ------------------------------------ |
-| `…:meta`       | Versi schema                         |
-| `…:master-v1`  | Jalur aktif, level, jadwal, baseline |
-| `…:history-v1` | Riwayat sesi                         |
-| `…:session-v1` | Sesi yang sedang berjalan            |
+| Key | Isi |
+| --- | --- |
+| `…:meta` | Versi schema |
+| `…:master-v1` | Jalur aktif, level, jadwal, baseline |
+| `…:history-v1` | Riwayat sesi |
+| `…:session-v1` | Sesi yang sedang berjalan |
 
-Saat load: migrasi schema (jika perlu) lalu **reconcile** ke katalog program di app (clamp level, validasi path/jadwal, drop session invalid). History lama tetap sebagai snapshot.
+Saat load: migrasi schema (jika perlu) lalu **reconcile** ke katalog program di `data/catalog.json`. History lama tetap sebagai snapshot.
 
 ## Catatan
 

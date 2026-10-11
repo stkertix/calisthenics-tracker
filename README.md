@@ -1,7 +1,5 @@
 # Calisthenics Tracker
 
-# Calisthenics Tracker
-
 [![Live demo](https://img.shields.io/badge/demo-open-f5d000?style=flat-square&labelColor=141414)](https://stkertix.github.io/calisthenics-tracker/)
 
 Tracker program latihan calisthenics bertahap (Push, Pull, Squat, Muscle-up), dioptimalkan untuk **HP**, dan bisa di-install sebagai **PWA**.

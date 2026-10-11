@@ -1,8 +1,14 @@
 # Calisthenics Tracker
 
+# Calisthenics Tracker
+
+[![Live demo](https://img.shields.io/badge/demo-open-f5d000?style=flat-square&labelColor=141414)](https://stkertix.github.io/calisthenics-tracker/)
+
 Tracker program latihan calisthenics bertahap (Push, Pull, Squat, Muscle-up), dioptimalkan untuk **HP**, dan bisa di-install sebagai **PWA**.
 
-Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthenics Playbook. Atribusi sumber ada di footer app.
+Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthenics Playbook. Atribusi sumber ada di **Setting → About**.
+
+**Live demo:** https://stkertix.github.io/calisthenics-tracker/
 
 ## Struktur
 
@@ -82,12 +88,12 @@ Update konten program: edit `data/catalog.json`. Ubah bentuk storage: naikkan `S
 
 Progress di `localStorage` per perangkat. Reset di tab Log.
 
-| Key | Isi |
-| --- | --- |
-| `…:meta` | Versi schema |
-| `…:master-v1` | Jalur aktif, level, jadwal, baseline |
-| `…:history-v1` | Riwayat sesi |
-| `…:session-v1` | Sesi berjalan |
+| Key            | Isi                                  |
+| -------------- | ------------------------------------ |
+| `…:meta`       | Versi schema                         |
+| `…:master-v1`  | Jalur aktif, level, jadwal, baseline |
+| `…:history-v1` | Riwayat sesi                         |
+| `…:session-v1` | Sesi berjalan                        |
 
 ## Catatan
 

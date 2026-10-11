@@ -1,0 +1,190 @@
+/* Tab Jalur — path picker & progresi */
+.path-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+.path-btn {
+  text-align: left;
+  border: 2px solid var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.55rem 0.65rem;
+  cursor: pointer;
+  min-height: 64px;
+}
+.path-btn.active {
+  background: var(--yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.path-btn .code {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.15rem;
+}
+.path-btn .meta {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1.25;
+}
+.path-btn.active .meta { color: var(--ink); }
+.path-btn .meta .rest-warn { color: var(--alert); font-weight: 700; }
+
+.status-row { display: none; }
+.pill-stat {
+  border: 1.5px solid var(--ink);
+  padding: 0.25rem 0.5rem;
+  background: rgba(255,255,255,0.5);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+/* —— Level —— */
+.level-track {
+  display: flex;
+  gap: 0.3rem;
+  margin: 0 0 0.65rem;
+}
+.level-dot {
+  flex: 1;
+  height: 6px;
+  background: var(--line);
+  border: 1.5px solid var(--ink);
+}
+.level-dot.done { background: var(--signal); }
+.level-dot.current {
+  background: var(--yellow);
+  transform: scaleY(1.4);
+}
+
+.level-card {
+  border: 2px solid var(--ink);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.75rem 0.8rem 0.85rem;
+  margin-bottom: 0.5rem;
+}
+.level-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0 0 0.25rem;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+}
+.level-card > p {
+  margin: 0 0 0.5rem;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.criteria {
+  border-left: 3px solid var(--yellow);
+  padding: 0.2rem 0 0.2rem 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  margin-bottom: 0.55rem;
+}
+.criteria strong { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.1rem; }
+
+.chain {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  counter-reset: step;
+}
+.chain li {
+  counter-increment: step;
+  display: flex;
+  gap: 0.65rem;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.9rem;
+}
+.chain li::before {
+  content: counter(step);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  min-width: 1.4rem;
+  color: var(--ink-soft);
+}
+
+.chain-block { margin: 0; }
+.chain-table-wrap {
+  border: 1.5px solid var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+  overflow: hidden;
+  max-height: 40vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.chain-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.chain-table thead { display: none; }
+.chain-table tr {
+  display: grid;
+  grid-template-columns: 1.8rem 1fr;
+  gap: 0 0.3rem;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.chain-table tr:last-child { border-bottom: 0; }
+.chain-table td {
+  border: 0;
+  padding: 0;
+  vertical-align: top;
+  line-height: 1.3;
+}
+.chain-table td:first-child { grid-row: 1 / span 2; }
+.chain-table td:nth-child(3) { grid-column: 2; }
+.chain-table .num {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1;
+  display: block;
+}
+.chain-table .move-name {
+  font-weight: 700;
+  font-size: 0.84rem;
+  display: inline;
+}
+.chain-table .move-desc {
+  display: none;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+details.fold[open] .chain-table .move-desc { display: block; }
+.chain-table tr.is-focus { background: rgba(245, 208, 0, 0.3); }
+.chain-table tr.is-focus .num { color: var(--ink); }
+.chain-table tr.is-done .num { color: var(--signal); }
+.chain-table tr.is-done .move-name { color: var(--ink-soft); font-weight: 500; }
+.chain-badge {
+  display: inline-block;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  background: var(--yellow);
+  padding: 0.08rem 0.28rem;
+  line-height: 1.2;
+}
+.chain-table tr.is-done .chain-badge {
+  background: transparent;
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+@media (min-width: 720px) {
+  .chain-table .move-desc { display: block; }
+}

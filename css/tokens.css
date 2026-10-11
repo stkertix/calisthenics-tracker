@@ -1,0 +1,18 @@
+/* Design tokens */
+:root {
+  --ink: #141414;
+  --ink-soft: #3a3a3a;
+  --paper: #f7f4ec;
+  --paper-2: #efe9da;
+  --line: #d6d0c0;
+  --yellow: #f5d000;
+  --yellow-deep: #e0b800;
+  --signal: #1f6b4a;
+  --alert: #b84a2b;
+  --rest: #2a5f8f;
+  --shadow: 0 1px 0 rgba(20, 20, 20, 0.06);
+  --radius: 10px;
+  --font-display: "Bebas Neue", Impact, sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --max: 720px;
+}

@@ -1,0 +1,32 @@
+/* —— Rest timer —— */
+.rest-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(3.35rem + env(safe-area-inset-bottom));
+  z-index: 35;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.65rem 0.85rem;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
+  border-top: 2px solid var(--yellow);
+  animation: slideUp 0.3s ease both;
+}
+.rest-bar.on { display: flex; }
+.rest-time {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  color: var(--yellow);
+  min-width: 3.8rem;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.rest-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.75; }
+.rest-actions { display: flex; gap: 0.35rem; }
+.rest-actions .btn { min-height: 40px; font-size: 0.78rem; padding: 0.4rem 0.65rem; }

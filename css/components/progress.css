@@ -1,0 +1,14 @@
+/* Progress bar */
+.bar {
+  height: 5px;
+  background: var(--line);
+  border: 1.5px solid var(--ink);
+  overflow: hidden;
+}
+.bar > i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--yellow);
+  transition: width 0.35s ease;
+}

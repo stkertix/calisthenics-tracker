@@ -1,0 +1,25 @@
+/* Form fields */
+label.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+label.field input, label.field textarea, .note-input {
+  font: inherit;
+  font-size: 16px; /* cegah auto-zoom iOS */
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  border: 1.5px solid var(--ink);
+  padding: 0.55rem 0.5rem;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+  border-radius: 0;
+}
+.note-input { min-height: 2.5rem; resize: vertical; }

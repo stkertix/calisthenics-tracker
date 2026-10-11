@@ -1,0 +1,12 @@
+/* Sticky CTA above bottom nav */
+.sticky-cta {
+  position: sticky;
+  bottom: calc(3.6rem + env(safe-area-inset-bottom));
+  z-index: 15;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.45rem 0 0.15rem;
+  background: linear-gradient(180deg, transparent, var(--paper-2) 28%);
+}
+.sticky-cta .btn { flex: 1; }
+.sticky-cta .btn.iconish { flex: 0 0 auto; min-width: 48px; padding-left: 0.65rem; padding-right: 0.65rem; }

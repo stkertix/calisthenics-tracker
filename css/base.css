@@ -1,0 +1,96 @@
+/* Base layout */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(245, 208, 0, 0.35), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(42, 95, 143, 0.12), transparent 50%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  -webkit-tap-highlight-color: rgba(245, 208, 0, 0.25);
+  touch-action: manipulation;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    -12deg,
+    transparent,
+    transparent 14px,
+    var(--ink) 14px,
+    var(--ink) 15px
+  );
+  z-index: 0;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding:
+    calc(0.65rem + env(safe-area-inset-top))
+    calc(0.75rem + env(safe-area-inset-right))
+    calc(5.75rem + env(safe-area-inset-bottom))
+    calc(0.75rem + env(safe-area-inset-left));
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.25rem;
+  line-height: 1;
+}
+.section-lead {
+  display: none;
+}
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+.panel-head h2 { margin: 0; }
+
+.footer-note {
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  text-align: center;
+}
+.footer-note a { color: var(--rest); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (min-width: 720px) {
+  .section-lead { display: block; margin: 0 0 0.75rem; font-size: 0.9rem; color: var(--ink-soft); }
+}

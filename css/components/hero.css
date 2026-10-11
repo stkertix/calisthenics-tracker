@@ -1,0 +1,13 @@
+/* —— Top status —— */
+.hero {
+  padding: 0.15rem 0 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.hero-level {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}

@@ -1,0 +1,72 @@
+/* Tab Jadwal */
+
+.schedule-options {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+.schedule-options label {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  border: 2px solid var(--ink);
+  padding: 0.65rem;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.schedule-options label:has(input:checked) {
+  background: rgba(245, 208, 0, 0.35);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.schedule-options input {
+  margin-top: 0.2rem;
+  accent-color: var(--ink);
+}
+.schedule-options strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.schedule-options span {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.week-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.week-chip {
+  border: 1.5px solid var(--ink);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 0.3rem 0.45rem;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+.week-chip strong {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.baseline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.baseline li {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.92rem;
+}
+.baseline input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--signal);
+}

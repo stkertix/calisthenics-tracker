@@ -8,7 +8,12 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 
 ```
 ├── index.html
-├── styles.css
+├── css/
+│   ├── main.css            # Entry (@import)
+│   ├── tokens.css          # Variabel warna/font
+│   ├── base.css            # Layout dasar
+│   ├── components/         # hero, tabs, buttons, fold, …
+│   └── ui/                 # home, workout, schedule, history
 ├── data/
 │   └── catalog.json        # Program, guide, jadwal, baseline
 ├── js/
@@ -18,15 +23,9 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 │   ├── storage.js          # localStorage / migrasi
 │   ├── context.js          # Shared UI context
 │   ├── rest.js             # Timer istirahat
-│   ├── pwa.js              # Service worker register
-│   ├── lib/
-│   │   └── dom.js          # $, toast, formatDate
-│   └── ui/
-│       ├── tabs.js
-│       ├── home.js         # Tab Jalur
-│       ├── workout.js      # Tab Sesi
-│       ├── schedule.js     # Tab Jadwal
-│       └── history.js      # Tab Log (+ export/import)
+│   ├── pwa.js
+│   ├── lib/dom.js
+│   └── ui/                 # tabs, home, workout, schedule, history
 ├── manifest.webmanifest
 ├── sw.js
 ├── icons/

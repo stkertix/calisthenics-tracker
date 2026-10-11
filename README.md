@@ -7,26 +7,38 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 ## Struktur
 
 ```
-├── index.html              # Shell HTML
-├── styles.css              # Styles
-├── app.js                  # Logika app + storage/PWA
+├── index.html
+├── styles.css
 ├── data/
-│   └── catalog.json        # MOVE guide, program, jadwal, baseline
-├── manifest.webmanifest    # Metadata PWA
-├── sw.js                   # Service worker (offline shell)
+│   └── catalog.json        # Program, guide, jadwal, baseline
+├── js/
+│   ├── main.js             # Bootstrap
+│   ├── config.js           # Konstanta & schema
+│   ├── catalog.js          # Load JSON + guideFor
+│   ├── storage.js          # localStorage / migrasi
+│   ├── context.js          # Shared UI context
+│   ├── rest.js             # Timer istirahat
+│   ├── pwa.js              # Service worker register
+│   ├── lib/
+│   │   └── dom.js          # $, toast, formatDate
+│   └── ui/
+│       ├── tabs.js
+│       ├── home.js         # Tab Jalur
+│       ├── workout.js      # Tab Sesi
+│       ├── schedule.js     # Tab Jadwal
+│       └── history.js      # Tab Log (+ export/import)
+├── manifest.webmanifest
+├── sw.js
 ├── icons/
-│   ├── icon-180.png
-│   ├── icon-192.png
-│   └── icon-512.png
 ├── .gitignore
 └── README.md
 ```
 
-Lokal (di-ignore): `.resources/` — ringkasan progresi & sumber OCR.
+Lokal (di-ignore): `.resources/`
 
 ## Menjalankan lokal
 
-Karena data & script di-load via `fetch`, jalankan lewat HTTP (bukan `file://`):
+Jalankan lewat HTTP (module + `fetch` tidak jalan di `file://`):
 
 ```bash
 python3 -m http.server 8080
@@ -43,7 +55,7 @@ python3 -m http.server 8080
 
 1. Buka URL di Chrome (Android) atau Safari (iOS)
 2. **Add to Home Screen** / **Install app**
-3. App fullscreen; shell tetap bisa dibuka offline setelah kunjungan pertama
+3. Shell offline setelah kunjungan pertama
 
 ## Fitur
 
@@ -54,14 +66,7 @@ python3 -m http.server 8080
 | **Jadwal** | Pola mingguan (stack / split / triplet) + baseline muscle-up   |
 | **Log**    | Riwayat sesi, export/import JSON, reset data                   |
 
-Lainnya:
-
-- Level **1→5** per jalur, dengan kriteria naik level
-- Deskripsi + cues form per gerakan (dilipat)
-- Rantai progresi & pengaturan level dilipat
-- Navigasi bawah, tombol sticky, timer istirahat (+30s / selesai)
-- Status jalur/level di pojok atas
-- PWA: installable + cache offline untuk app shell
+Lainnya: level 1→5, cues form, PWA offline shell.
 
 ## Jalur latihan
 
@@ -72,26 +77,21 @@ Lainnya:
 | Squat     | Pistol squat    |
 | Muscle-up | Bar muscle-up   |
 
-Prinsip: latihan 2–3×/minggu per skill, istirahat ≥48 jam, gerakan terberat dulu, jangan loncat level.
-
-Update konten program: edit `data/catalog.json` (lalu naikkan `SCHEMA_VERSION` di `app.js` jika bentuk data berubah).
+Update konten program: edit `data/catalog.json`. Ubah bentuk storage: naikkan `SCHEMA_VERSION` di `js/config.js` + tambah step di `MIGRATIONS`.
 
 ## Penyimpanan data
 
-Progress di `localStorage` perangkat (per origin/browser). Hapus data situs = progress hilang. Reset ada di tab Log.
+Progress di `localStorage` per perangkat. Reset di tab Log.
 
 | Key | Isi |
 | --- | --- |
 | `…:meta` | Versi schema |
 | `…:master-v1` | Jalur aktif, level, jadwal, baseline |
 | `…:history-v1` | Riwayat sesi |
-| `…:session-v1` | Sesi yang sedang berjalan |
-
-Saat load: migrasi schema (jika perlu) lalu **reconcile** ke katalog program di `data/catalog.json`. History lama tetap sebagai snapshot.
+| `…:session-v1` | Sesi berjalan |
 
 ## Catatan
 
 - Alat bantu pribadi — bukan pengganti buku resmi
-- Detail form & ilustrasi: [yellowdude.co](https://yellowdude.co) / [thegravgear.com](https://thegravgear.com)
-- Panduan umum kebugaran, bukan saran medis
-- Font Google butuh jaringan saat pertama kali; setelah itu shell app tetap tersedia offline
+- Detail form: [yellowdude.co](https://yellowdude.co) / [thegravgear.com](https://thegravgear.com)
+- Panduan kebugaran umum, bukan saran medis

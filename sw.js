@@ -1,15 +1,27 @@
 /* Calisthenics Tracker — service worker (GitHub Pages–friendly relative URLs) */
-const CACHE = "calisthenics-tracker-v2";
+const CACHE = "calisthenics-tracker-v3";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
-  "./app.js",
   "./data/catalog.json",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-180.png",
+  "./js/main.js",
+  "./js/config.js",
+  "./js/catalog.js",
+  "./js/context.js",
+  "./js/storage.js",
+  "./js/rest.js",
+  "./js/pwa.js",
+  "./js/lib/dom.js",
+  "./js/ui/tabs.js",
+  "./js/ui/home.js",
+  "./js/ui/workout.js",
+  "./js/ui/schedule.js",
+  "./js/ui/history.js",
 ];
 
 self.addEventListener("install", (event) => {
@@ -31,7 +43,6 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
-  // Hanya handle same-origin (app shell). Font Google tetap network.
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(

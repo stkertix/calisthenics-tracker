@@ -8,6 +8,7 @@ import { bindTabs } from "./ui/tabs.js";
 import { renderHome } from "./ui/home.js";
 import { renderWorkout, startSession } from "./ui/workout.js";
 import { renderSchedule } from "./ui/schedule.js";
+import { renderSettings, bindSettings } from "./ui/settings.js";
 import { renderHistory, bindHistoryActions } from "./ui/history.js";
 import { registerServiceWorker } from "./pwa.js";
 
@@ -24,11 +25,13 @@ async function boot() {
   ctx.renderHome = renderHome;
   ctx.renderWorkout = renderWorkout;
   ctx.renderSchedule = renderSchedule;
+  ctx.renderSettings = renderSettings;
   ctx.renderHistory = renderHistory;
   ctx.startSession = startSession;
 
   bindTabs();
   bindRestControls();
+  bindSettings();
   bindHistoryActions();
 
   renderHome();

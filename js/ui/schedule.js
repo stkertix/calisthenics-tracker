@@ -1,4 +1,4 @@
-/** Tab Jadwal: pola mingguan + baseline muscle-up. */
+/** Jadwal (subhalaman Setting): pola mingguan + baseline muscle-up. */
 
 import { $ } from "../lib/dom.js";
 import { getSchedules, getBaseline, getDays } from "../catalog.js";

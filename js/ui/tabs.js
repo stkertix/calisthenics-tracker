@@ -16,7 +16,7 @@ export function bindTabs() {
       $(`#panel-${tab.dataset.tab}`).classList.add("active");
       if (tab.dataset.tab === "workout") ctx.renderWorkout();
       if (tab.dataset.tab === "history") ctx.renderHistory();
-      if (tab.dataset.tab === "schedule") ctx.renderSchedule();
+      if (tab.dataset.tab === "settings") ctx.renderSettings();
       if (tab.dataset.tab === "home") ctx.renderHome();
     });
   });

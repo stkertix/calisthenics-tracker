@@ -13,7 +13,7 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 │   ├── tokens.css          # Variabel warna/font
 │   ├── base.css            # Layout dasar
 │   ├── components/         # hero, tabs, buttons, fold, …
-│   └── ui/                 # home, workout, schedule, history
+│   └── ui/                 # home, workout, history, settings, schedule
 ├── data/
 │   └── catalog.json        # Program, guide, jadwal, baseline
 ├── js/
@@ -25,7 +25,7 @@ Ringkasan program mengacu pada struktur progresi Yellow Dude / Gravgear Calisthe
 │   ├── rest.js             # Timer istirahat
 │   ├── pwa.js
 │   ├── lib/dom.js
-│   └── ui/                 # tabs, home, workout, schedule, history
+│   └── ui/                 # tabs, home, workout, history, settings, schedule
 ├── manifest.webmanifest
 ├── sw.js
 ├── icons/
@@ -58,12 +58,12 @@ python3 -m http.server 8080
 
 ## Fitur
 
-| Tab        | Isi                                                            |
-| ---------- | -------------------------------------------------------------- |
-| **Jalur**  | Pilih Push / Pull / Squat / Muscle-up, lihat level, mulai sesi |
-| **Sesi**   | Checklist gerakan, set/rep, timer istirahat, catatan           |
-| **Jadwal** | Pola mingguan (stack / split / triplet) + baseline muscle-up   |
-| **Log**    | Kalender latihan, riwayat, export/import JSON, reset data      |
+| Tab         | Isi                                                            |
+| ----------- | -------------------------------------------------------------- |
+| **Jalur**   | Pilih Push / Pull / Squat / Muscle-up, lihat level, mulai sesi |
+| **Sesi**    | Checklist gerakan, set/rep, timer istirahat, catatan           |
+| **Log**     | Kalender latihan, riwayat, export/import JSON, reset data      |
+| **Setting** | Jadwal (pola mingguan + baseline) · About                      |
 
 Lainnya: level 1→5, cues form, PWA offline shell.
 

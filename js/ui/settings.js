@@ -1,0 +1,139 @@
+/** Tab Setting: menu + subhalaman (Jadwal, About, …). */
+
+import { $ } from "../lib/dom.js";
+import { APP_NAME, APP_VERSION, SCHEMA_VERSION } from "../config.js";
+import { renderSchedule } from "./schedule.js";
+import { ctx } from "../context.js";
+
+/** @type {null | "schedule" | "about"} */
+let settingsView = null;
+
+const MENU = [
+  {
+    id: "schedule",
+    title: "Jadwal",
+    desc: "Pola mingguan & baseline muscle-up",
+  },
+  {
+    id: "about",
+    title: "About",
+    desc: "Versi app & atribusi sumber",
+  },
+];
+
+const SUBVIEWS = {
+  schedule: "settingsSchedule",
+  about: "settingsAbout",
+};
+
+function hideAllSubs() {
+  Object.values(SUBVIEWS).forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.hidden = true;
+  });
+}
+
+function setSubTitle(label) {
+  const title = $("#settingsTitle");
+  if (!title) return;
+  title.innerHTML = `
+    <button type="button" class="settings-back" id="settingsBack" aria-label="Kembali ke Setting">‹</button>
+    <span>${label}</span>`;
+  $("#settingsBack")?.addEventListener("click", showMenu);
+}
+
+function showMenu() {
+  settingsView = null;
+  const title = $("#settingsTitle");
+  const menu = $("#settingsMenu");
+  if (title) title.textContent = "Setting";
+  hideAllSubs();
+  if (menu) {
+    menu.hidden = false;
+    menu.innerHTML = MENU.map(
+      (item) => `
+      <button type="button" class="settings-item" data-settings="${item.id}">
+        <span class="settings-item-text">
+          <strong>${item.title}</strong>
+          <span>${item.desc}</span>
+        </span>
+        <span class="settings-item-chevron" aria-hidden="true">›</span>
+      </button>`
+    ).join("");
+    menu.querySelectorAll("[data-settings]").forEach((btn) => {
+      btn.addEventListener("click", () => openSettingsView(btn.dataset.settings));
+    });
+  }
+}
+
+function renderAbout() {
+  const el = $("#settingsAbout");
+  if (!el) return;
+  el.innerHTML = `
+    <div class="about-brand">
+      <strong>${APP_NAME}</strong>
+      <span>v${APP_VERSION}</span>
+    </div>
+    <p class="about-lead">
+      Tracker progresi calisthenics bertahap (Push, Pull, Squat, Muscle-up).
+      Dioptimalkan untuk dipakai di HP dan bisa di-install sebagai PWA.
+    </p>
+    <ul class="about-meta">
+      <li><span>Schema data</span><strong>v${SCHEMA_VERSION}</strong></li>
+      <li><span>Penyimpanan</span><strong>localStorage perangkat</strong></li>
+    </ul>
+    <div class="about-block">
+      <h3>Sumber program</h3>
+      <p>
+        Ringkasan struktur progresi mengacu pada Yellow Dude / Gravgear Calisthenics Playbook.
+        Alat bantu pribadi — bukan pengganti buku resmi.
+      </p>
+      <p class="about-links">
+        <a href="https://yellowdude.co" target="_blank" rel="noopener">yellowdude.co</a>
+        <a href="https://thegravgear.com" target="_blank" rel="noopener">thegravgear.com</a>
+      </p>
+    </div>
+    <p class="about-disclaimer">
+      Panduan umum kebugaran, bukan saran medis. Latihan dengan form aman dan istirahat cukup.
+    </p>
+  `;
+}
+
+function openSettingsView(id) {
+  const menu = $("#settingsMenu");
+  if (menu) menu.hidden = true;
+  hideAllSubs();
+
+  if (id === "schedule") {
+    settingsView = "schedule";
+    setSubTitle("Jadwal");
+    const schedule = $("#settingsSchedule");
+    if (schedule) {
+      schedule.hidden = false;
+      renderSchedule();
+    }
+    return;
+  }
+
+  if (id === "about") {
+    settingsView = "about";
+    setSubTitle("About");
+    const about = $("#settingsAbout");
+    if (about) {
+      about.hidden = false;
+      renderAbout();
+    }
+  }
+}
+
+export function renderSettings() {
+  if (settingsView === "schedule" || settingsView === "about") {
+    openSettingsView(settingsView);
+  } else {
+    showMenu();
+  }
+}
+
+export function bindSettings() {
+  ctx.renderSettings = renderSettings;
+}

@@ -8,6 +8,7 @@ export const ctx = {
   renderHome: () => {},
   renderWorkout: () => {},
   renderSchedule: () => {},
+  renderSettings: () => {},
   renderHistory: () => {},
   goTab: () => {},
   startSession: () => {},

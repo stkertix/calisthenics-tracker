@@ -1,5 +1,7 @@
 /** Konstanta app & storage keys. */
 
+export const APP_NAME = "Calisthenics Tracker";
+export const APP_VERSION = "1.0.0";
 export const SCHEMA_VERSION = 1;
 
 export const STORAGE = {

@@ -35,14 +35,6 @@
       <div id="workoutView"></div>
     </section>
 
-    <!-- SCHEDULE -->
-    <section id="panel-schedule" class="panel" role="tabpanel">
-      <div class="panel-head"><h2>Jadwal</h2></div>
-      <div class="schedule-options" id="scheduleOptions"></div>
-      <div id="weekPreview"></div>
-      <div id="baselineBlock" style="margin-top:0.65rem"></div>
-    </section>
-
     <!-- HISTORY -->
     <section id="panel-history" class="panel" role="tabpanel">
       <div class="panel-head"><h2>Riwayat</h2></div>
@@ -56,17 +48,25 @@
       </div>
     </section>
 
-    <p class="footer-note">
-      Ringkasan program Yellow Dude / Gravgear —
-      <a href="https://yellowdude.co" target="_blank" rel="noopener">yellowdude.co</a>.
-    </p>
+    <!-- SETTINGS -->
+    <section id="panel-settings" class="panel" role="tabpanel">
+      <div class="panel-head"><h2 id="settingsTitle">Setting</h2></div>
+      <div id="settingsMenu" class="settings-menu"></div>
+      <div id="settingsSchedule" class="settings-sub" hidden>
+        <div class="schedule-options" id="scheduleOptions"></div>
+        <div id="weekPreview"></div>
+        <div id="baselineBlock" style="margin-top:0.65rem"></div>
+      </div>
+      <div id="settingsAbout" class="settings-sub about-card" hidden></div>
+    </section>
+
   </div>
 
   <nav class="tabs" role="tablist" aria-label="Navigasi utama">
     <button class="tab" role="tab" aria-selected="true" data-tab="home">Jalur</button>
     <button class="tab" role="tab" aria-selected="false" data-tab="workout">Sesi</button>
-    <button class="tab" role="tab" aria-selected="false" data-tab="schedule">Jadwal</button>
     <button class="tab" role="tab" aria-selected="false" data-tab="history">Log</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="settings">Setting</button>
   </nav>
 
   <div class="rest-bar" id="restBar" aria-live="polite">

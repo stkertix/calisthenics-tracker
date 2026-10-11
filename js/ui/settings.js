@@ -1,14 +1,20 @@
-/** Tab Setting: menu + subhalaman (Jadwal, About, …). */
+/** Tab Setting: menu + subhalaman (Dashboard, Jadwal, About, …). */
 
 import { $ } from "../lib/dom.js";
 import { APP_NAME, APP_VERSION, SCHEMA_VERSION } from "../config.js";
 import { renderSchedule } from "./schedule.js";
+import { renderDashboard } from "./dashboard.js";
 import { ctx } from "../context.js";
 
-/** @type {null | "schedule" | "about"} */
+/** @type {null | "dashboard" | "schedule" | "about"} */
 let settingsView = null;
 
 const MENU = [
+  {
+    id: "dashboard",
+    title: "Dashboard",
+    desc: "Ringkasan progres & volume latihan",
+  },
   {
     id: "schedule",
     title: "Jadwal",
@@ -22,8 +28,15 @@ const MENU = [
 ];
 
 const SUBVIEWS = {
+  dashboard: "settingsDashboard",
   schedule: "settingsSchedule",
   about: "settingsAbout",
+};
+
+const TITLES = {
+  dashboard: "Dashboard",
+  schedule: "Jadwal",
+  about: "About",
 };
 
 function hideAllSubs() {
@@ -100,34 +113,25 @@ function renderAbout() {
 }
 
 function openSettingsView(id) {
+  if (!SUBVIEWS[id]) return;
+
   const menu = $("#settingsMenu");
   if (menu) menu.hidden = true;
   hideAllSubs();
 
-  if (id === "schedule") {
-    settingsView = "schedule";
-    setSubTitle("Jadwal");
-    const schedule = $("#settingsSchedule");
-    if (schedule) {
-      schedule.hidden = false;
-      renderSchedule();
-    }
-    return;
-  }
+  settingsView = id;
+  setSubTitle(TITLES[id] || id);
 
-  if (id === "about") {
-    settingsView = "about";
-    setSubTitle("About");
-    const about = $("#settingsAbout");
-    if (about) {
-      about.hidden = false;
-      renderAbout();
-    }
-  }
+  const panel = document.getElementById(SUBVIEWS[id]);
+  if (panel) panel.hidden = false;
+
+  if (id === "dashboard") renderDashboard();
+  if (id === "schedule") renderSchedule();
+  if (id === "about") renderAbout();
 }
 
 export function renderSettings() {
-  if (settingsView === "schedule" || settingsView === "about") {
+  if (settingsView && SUBVIEWS[settingsView]) {
     openSettingsView(settingsView);
   } else {
     showMenu();

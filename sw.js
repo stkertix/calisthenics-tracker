@@ -1,5 +1,5 @@
 /* Calisthenics Tracker — service worker (GitHub Pages–friendly relative URLs) */
-const CACHE = "calisthenics-tracker-v5";
+const CACHE = "calisthenics-tracker-v6";
 const ASSETS = [
   "./",
   "./index.html",
@@ -25,6 +25,7 @@ const ASSETS = [
   "./css/ui/schedule.css",
   "./css/ui/history.css",
   "./css/ui/settings.css",
+  "./css/ui/dashboard.css",
   "./js/main.js",
   "./js/config.js",
   "./js/catalog.js",
@@ -39,6 +40,7 @@ const ASSETS = [
   "./js/ui/schedule.js",
   "./js/ui/history.js",
   "./js/ui/settings.js",
+  "./js/ui/dashboard.js",
 ];
 
 self.addEventListener("install", (event) => {

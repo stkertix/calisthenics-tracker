@@ -63,7 +63,7 @@ python3 -m http.server 8080
 | **Jalur**   | Pilih Push / Pull / Squat / Muscle-up, lihat level, mulai sesi |
 | **Sesi**    | Checklist gerakan, set/rep, timer istirahat, catatan           |
 | **Log**     | Kalender latihan, riwayat, export/import JSON, reset data      |
-| **Setting** | Jadwal (pola mingguan + baseline) · About                      |
+| **Setting** | Dashboard · Jadwal · About                                     |
 
 Lainnya: level 1→5, cues form, PWA offline shell.
 

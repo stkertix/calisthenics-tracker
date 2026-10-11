@@ -10,9 +10,20 @@
   font-weight: 700;
   font-size: 0.88rem;
   z-index: 40;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.2s ease;
   border: 2px solid var(--yellow);
   max-width: 90vw;
   text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
-.toast.show { transform: translateX(-50%) translateY(0); }
+.toast:empty {
+  display: none;
+}
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}

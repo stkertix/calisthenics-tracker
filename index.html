@@ -789,7 +789,16 @@
   <div class="toast" id="toast" role="status"></div>
 
   <script>
-    const STORAGE_KEY = "yd-calisthenics-tracker-v1";
+    /** Naikkan angka ini saat bentuk data berubah; tambah step di MIGRATIONS. */
+    const SCHEMA_VERSION = 1;
+
+    const STORAGE = {
+      meta: "yd-calisthenics-tracker:meta",
+      master: "yd-calisthenics-tracker:master-v1",
+      history: "yd-calisthenics-tracker:history-v1",
+      session: "yd-calisthenics-tracker:session-v1",
+    };
+    const LEGACY_STORAGE_KEY = "yd-calisthenics-tracker-v1";
 
     /** Deskripsi gerakan (ringkas) — dipakai di rantai progresi & sesi */
     const MOVE_GUIDE = {
@@ -1018,7 +1027,7 @@
             advance: "Selesaikan negative ≈8 rep dengan kontrol.",
             exercises: [
               { name: "Negative push-ups", sets: 3, reps: "8", tempo: "4s turun", rest: 120, note: "Turun 3-5 detik, form lurus." },
-              { name: "Normal push-ups", sets: 3, reps: "sebisanya", tempo: "2010", rest: 120 },
+              { name: "Normal push-ups", sets: 3, reps: "sebisanya", tempo: "2-0-1-0", rest: 120 },
               { name: "Plank hold", sets: 3, reps: "30-60s", tempo: "hold", rest: 90 },
             ],
           },
@@ -1026,8 +1035,8 @@
             focus: "Normal + diamond + plank",
             advance: "≈12 normal push-up form bersih.",
             exercises: [
-              { name: "Normal push-ups", sets: 3, reps: "12", tempo: "2010", rest: 120 },
-              { name: "Diamond push-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 120 },
+              { name: "Normal push-ups", sets: 3, reps: "12", tempo: "2-0-1-0", rest: 120 },
+              { name: "Diamond push-ups", sets: 3, reps: "8-10", tempo: "2-0-1-0", rest: 120 },
               { name: "Plank hold", sets: 3, reps: "60s", tempo: "hold", rest: 90 },
             ],
           },
@@ -1035,19 +1044,19 @@
             focus: "Wide / diamond / explosive",
             advance: "Selesaikan semua set/rep level ini.",
             exercises: [
-              { name: "Wide push-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 120 },
-              { name: "Diamond push-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 120 },
+              { name: "Wide push-ups", sets: 3, reps: "8-10", tempo: "2-0-1-0", rest: 120 },
+              { name: "Diamond push-ups", sets: 3, reps: "10-12", tempo: "2-0-1-0", rest: 120 },
               { name: "Explosive push-ups", sets: 3, reps: "6", tempo: "1010", rest: 120 },
-              { name: "Tricep extensions", sets: 3, reps: "8", tempo: "2010", rest: 90 },
+              { name: "Tricep extensions", sets: 3, reps: "8", tempo: "2-0-1-0", rest: 90 },
             ],
           },
           4: {
             focus: "Archer + volume + plank 60s",
             advance: "Set/rep selesai + plank 1 menit bersih.",
             exercises: [
-              { name: "Archer push-ups", sets: 3, reps: "4 / lengan", tempo: "2010", rest: 150 },
-              { name: "Diamond push-ups", sets: 3, reps: "10", tempo: "2010", rest: 120 },
-              { name: "Normal push-ups", sets: 3, reps: "10", tempo: "2010", rest: 120 },
+              { name: "Archer push-ups", sets: 3, reps: "4 / lengan", tempo: "2-0-1-0", rest: 150 },
+              { name: "Diamond push-ups", sets: 3, reps: "10", tempo: "2-0-1-0", rest: 120 },
+              { name: "Normal push-ups", sets: 3, reps: "10", tempo: "2-0-1-0", rest: 120 },
               { name: "Plank hold", sets: 3, reps: "60s", tempo: "hold", rest: 90 },
             ],
           },
@@ -1055,9 +1064,9 @@
             focus: "One-arm push-ups (fokus utama)",
             advance: "Selesaikan routine; naikkan rep OAPU bertahap.",
             exercises: [
-              { name: "One-arm push-ups", sets: 4, reps: "2-5 / lengan", tempo: "2010", rest: 180 },
-              { name: "Archer push-ups", sets: 3, reps: "4 / lengan", tempo: "2010", rest: 120 },
-              { name: "Diamond push-ups", sets: 3, reps: "8", tempo: "2010", rest: 120 },
+              { name: "One-arm push-ups", sets: 4, reps: "2-5 / lengan", tempo: "2-0-1-0", rest: 180 },
+              { name: "Archer push-ups", sets: 3, reps: "4 / lengan", tempo: "2-0-1-0", rest: 120 },
+              { name: "Diamond push-ups", sets: 3, reps: "8", tempo: "2-0-1-0", rest: 120 },
               { name: "Plank hold", sets: 2, reps: "60s", tempo: "hold", rest: 90 },
             ],
           },
@@ -1085,7 +1094,7 @@
             advance: "Row ≈30-40 kg sesuai set/rep + hang ~60s.",
             exercises: [
               { name: "Warm-up: band pull-aparts / pull-downs", sets: 2, reps: "12-15", tempo: "smooth", rest: 45 },
-              { name: "Bent-over rows", sets: 3, reps: "12-15", tempo: "2010", rest: 180 },
+              { name: "Bent-over rows", sets: 3, reps: "12-15", tempo: "2-0-1-0", rest: 180 },
               { name: "Passive hang", sets: 3, reps: "30-60s", tempo: "hold", rest: 90 },
             ],
           },
@@ -1093,8 +1102,8 @@
             focus: "Australian + scapula",
             advance: "Australian hampir horizontal, set/rep terpenuhi.",
             exercises: [
-              { name: "Australian pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 120 },
-              { name: "Scapula pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 90 },
+              { name: "Australian pull-ups", sets: 3, reps: "10-12", tempo: "2-0-1-0", rest: 120 },
+              { name: "Scapula pull-ups", sets: 3, reps: "10-12", tempo: "2-0-1-0", rest: 90 },
               { name: "Passive hang", sets: 2, reps: "45-60s", tempo: "hold", rest: 90 },
             ],
           },
@@ -1102,9 +1111,9 @@
             focus: "Band-assisted + Australian + scapula",
             advance: "Band tipis (~10 kg) masih cukup untuk target.",
             exercises: [
-              { name: "Band-assisted pull-ups", sets: 3, reps: "6-8", tempo: "2010", rest: 150 },
-              { name: "Australian pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 120 },
-              { name: "Scapula pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 90 },
+              { name: "Band-assisted pull-ups", sets: 3, reps: "6-8", tempo: "2-0-1-0", rest: 150 },
+              { name: "Australian pull-ups", sets: 3, reps: "10-12", tempo: "2-0-1-0", rest: 120 },
+              { name: "Scapula pull-ups", sets: 3, reps: "10-12", tempo: "2-0-1-0", rest: 90 },
             ],
           },
           4: {
@@ -1112,8 +1121,8 @@
             advance: "5× negative ~10 detik → siap pull-up penuh.",
             exercises: [
               { name: "Negative pull-ups", sets: 5, reps: "1", tempo: "8-10s turun", rest: 90 },
-              { name: "Band-assisted pull-ups", sets: 3, reps: "6-8", tempo: "2010", rest: 150 },
-              { name: "Australian pull-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 120 },
+              { name: "Band-assisted pull-ups", sets: 3, reps: "6-8", tempo: "2-0-1-0", rest: 150 },
+              { name: "Australian pull-ups", sets: 3, reps: "8-10", tempo: "2-0-1-0", rest: 120 },
               { name: "Passive hang", sets: 2, reps: "30s", tempo: "hold", rest: 60 },
             ],
           },
@@ -1121,9 +1130,9 @@
             focus: "Pull-ups + volume pendukung",
             advance: "Naikkan volume bertahap (mis. 3×3 → 3×4).",
             exercises: [
-              { name: "Pull-ups", sets: 5, reps: "2-5", tempo: "2010", rest: 180 },
-              { name: "Band-assisted pull-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 150 },
-              { name: "Australian + scapula (superset)", sets: 3, reps: "8 + 8", tempo: "2010", rest: 150 },
+              { name: "Pull-ups", sets: 5, reps: "2-5", tempo: "2-0-1-0", rest: 180 },
+              { name: "Band-assisted pull-ups", sets: 3, reps: "8-10", tempo: "2-0-1-0", rest: 150 },
+              { name: "Australian + scapula (superset)", sets: 3, reps: "8 + 8", tempo: "2-0-1-0", rest: 150 },
               { name: "Passive hang", sets: 2, reps: "30-45s", tempo: "hold", rest: 60 },
             ],
           },
@@ -1149,9 +1158,9 @@
             focus: "Narrow + deep + BW squat",
             advance: "Routine selesai. Deep sulit? Fokus mobility dulu.",
             exercises: [
-              { name: "Narrow-stance squats", sets: 3, reps: "12", tempo: "2010", rest: 120 },
-              { name: "Deep squats", sets: 3, reps: "12", tempo: "2010", rest: 120 },
-              { name: "Bodyweight squats", sets: 3, reps: "15", tempo: "2010", rest: 90 },
+              { name: "Narrow-stance squats", sets: 3, reps: "12", tempo: "2-0-1-0", rest: 120 },
+              { name: "Deep squats", sets: 3, reps: "12", tempo: "2-0-1-0", rest: 120 },
+              { name: "Bodyweight squats", sets: 3, reps: "15", tempo: "2-0-1-0", rest: 90 },
             ],
           },
           2: {
@@ -1160,15 +1169,15 @@
             exercises: [
               { name: "Bulgarian split squats", sets: 3, reps: "6 / kaki", tempo: "3010", rest: 150 },
               { name: "Deep squats", sets: 3, reps: "10", tempo: "3010", rest: 120 },
-              { name: "Narrow-stance squats", sets: 3, reps: "10", tempo: "2010", rest: 90 },
+              { name: "Narrow-stance squats", sets: 3, reps: "10", tempo: "2-0-1-0", rest: 90 },
             ],
           },
           3: {
             focus: "Cossack + Bulgarian + deep",
             advance: "≈6 Cossack per sisi + sisa workout.",
             exercises: [
-              { name: "Cossack squats", sets: 3, reps: "6 / sisi", tempo: "2010", rest: 120 },
-              { name: "Bulgarian split squats", sets: 3, reps: "8 / kaki", tempo: "2010", rest: 150 },
+              { name: "Cossack squats", sets: 3, reps: "6 / sisi", tempo: "2-0-1-0", rest: 120 },
+              { name: "Bulgarian split squats", sets: 3, reps: "8 / kaki", tempo: "2-0-1-0", rest: 150 },
               { name: "Deep squats", sets: 3, reps: "10-12", tempo: "3010", rest: 120 },
             ],
           },
@@ -1177,8 +1186,8 @@
             advance: "≈10 rep variasi mudah (atau eccentric ~4s) → coba pistol.",
             exercises: [
               { name: "Pistol easier variant (box / assisted / eccentric)", sets: 3, reps: "8-10 / kaki", tempo: "3010 / 4s", rest: 120 },
-              { name: "Cossack squats", sets: 3, reps: "8 / sisi", tempo: "2010", rest: 100 },
-              { name: "Bulgarian split squats", sets: 3, reps: "10 / kaki", tempo: "2010", rest: 120 },
+              { name: "Cossack squats", sets: 3, reps: "8 / sisi", tempo: "2-0-1-0", rest: 100 },
+              { name: "Bulgarian split squats", sets: 3, reps: "10 / kaki", tempo: "2-0-1-0", rest: 120 },
               { name: "Deep squats", sets: 2, reps: "12", tempo: "3010", rest: 100 },
             ],
           },
@@ -1188,7 +1197,7 @@
             exercises: [
               { name: "Pistol squats", sets: 3, reps: "3-8 / kaki", tempo: "2020", rest: 150 },
               { name: "Pistol easier variant", sets: 2, reps: "6 / kaki", tempo: "3010", rest: 120 },
-              { name: "Cossack squats", sets: 3, reps: "8 / sisi", tempo: "2010", rest: 100 },
+              { name: "Cossack squats", sets: 3, reps: "8 / sisi", tempo: "2-0-1-0", rest: 100 },
               { name: "Deep squats", sets: 3, reps: "10", tempo: "3010", rest: 100 },
             ],
           },
@@ -1240,7 +1249,7 @@
               { name: "High / chest-to-bar pull-ups", sets: 5, reps: "4-5", tempo: "20X1", rest: 90 },
               { name: "Straight bar dips", sets: 4, reps: "6-8", tempo: "2121", rest: 75 },
               { name: "Bar lean-overs / assisted muscle-up", sets: 4, reps: "4-6", tempo: "controlled", rest: 60 },
-              { name: "Hanging leg raise", sets: 3, reps: "8-10", tempo: "2010", rest: 45 },
+              { name: "Hanging leg raise", sets: 3, reps: "8-10", tempo: "2-0-1-0", rest: 45 },
               { name: "Hollow body hold", sets: 3, reps: "30s", tempo: "hold", rest: 30 },
             ],
           },
@@ -1300,29 +1309,210 @@
 
     const DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 
-    function defaultState() {
+    function defaultMaster() {
       return {
         activePath: "push",
         levels: { push: 1, pull: 1, squat: 1, muscleup: 1 },
         schedule: "split",
         baseline: {},
+      };
+    }
+
+    function defaultState() {
+      return {
+        ...defaultMaster(),
         history: [],
         session: null,
       };
     }
 
-    function loadState() {
+    function readJson(key, fallback) {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return defaultState();
-        return { ...defaultState(), ...JSON.parse(raw) };
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback();
+        return JSON.parse(raw);
       } catch {
-        return defaultState();
+        return fallback();
       }
     }
 
+    function writeJson(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function migrateLegacyStorage() {
+      const legacy = readJson(LEGACY_STORAGE_KEY, () => null);
+      if (!legacy || typeof legacy !== "object") return;
+
+      const hasScoped =
+        localStorage.getItem(STORAGE.master) ||
+        localStorage.getItem(STORAGE.history) ||
+        localStorage.getItem(STORAGE.session);
+      if (hasScoped) {
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+        return;
+      }
+
+      const master = {
+        ...defaultMaster(),
+        activePath: legacy.activePath ?? defaultMaster().activePath,
+        levels: { ...defaultMaster().levels, ...(legacy.levels || {}) },
+        schedule: legacy.schedule ?? defaultMaster().schedule,
+        baseline: legacy.baseline || {},
+      };
+      writeJson(STORAGE.master, master);
+      writeJson(STORAGE.history, legacy.history || []);
+      if (legacy.session) writeJson(STORAGE.session, legacy.session);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+    }
+
+    /**
+     * Step migrasi: key = versi asal (sebelum naik 1).
+     * Contoh nanti: 1: (data) => { ...ubah data...; return data; }
+     * lalu naikkan SCHEMA_VERSION ke 2.
+     */
+    const MIGRATIONS = {
+      0: (data) => data,
+    };
+
+    function clampLevel(pathId, value) {
+      const max = PROGRAMS[pathId]?.maxLevel || 1;
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 1;
+      return Math.min(max, Math.max(1, Math.round(n)));
+    }
+
+    /** Samakan progress/history/session dengan katalog PROGRAMS & SCHEDULES saat ini. */
+    function reconcileWithCatalog(data) {
+      const pathIds = Object.keys(PROGRAMS);
+      const scheduleIds = new Set(SCHEDULES.map((s) => s.id));
+      const baselineIds = new Set(BASELINE.map((b) => b.id));
+
+      if (!pathIds.includes(data.master.activePath)) {
+        data.master.activePath = pathIds[0] || "push";
+      }
+
+      const levels = {};
+      pathIds.forEach((id) => {
+        levels[id] = clampLevel(id, data.master.levels?.[id] ?? 1);
+      });
+      data.master.levels = levels;
+
+      if (!scheduleIds.has(data.master.schedule)) {
+        data.master.schedule = "split";
+      }
+
+      const baseline = {};
+      Object.entries(data.master.baseline || {}).forEach(([id, on]) => {
+        if (baselineIds.has(id)) baseline[id] = !!on;
+      });
+      data.master.baseline = baseline;
+
+      data.history = (Array.isArray(data.history) ? data.history : [])
+        .filter((h) => h && typeof h === "object")
+        .map((h) => ({
+          ...h,
+          // path lama tetap disimpan (tampil fallback); level di-clamp jika path masih ada
+          level: pathIds.includes(h.path)
+            ? clampLevel(h.path, h.level)
+            : Math.max(1, Number(h.level) || 1),
+        }))
+        .slice(0, 60);
+
+      const session = data.session;
+      if (session && typeof session === "object") {
+        const prog = PROGRAMS[session.path];
+        const levelOk = prog && session.level >= 1 && session.level <= prog.maxLevel;
+        const exercisesOk = Array.isArray(session.exercises) && session.exercises.length > 0;
+        data.session = levelOk && exercisesOk
+          ? { ...session, level: clampLevel(session.path, session.level) }
+          : null;
+      } else {
+        data.session = null;
+      }
+
+      return data;
+    }
+
+    function readScopedData() {
+      const masterRaw = readJson(STORAGE.master, defaultMaster);
+      const history = readJson(STORAGE.history, () => []);
+      const session = readJson(STORAGE.session, () => null);
+      return {
+        master: {
+          ...defaultMaster(),
+          ...masterRaw,
+          levels: { ...defaultMaster().levels, ...(masterRaw.levels || {}) },
+          baseline: masterRaw.baseline || {},
+        },
+        history: Array.isArray(history) ? history : [],
+        session,
+      };
+    }
+
+    function persistScopedData(data) {
+      writeJson(STORAGE.meta, { schemaVersion: SCHEMA_VERSION });
+      writeJson(STORAGE.master, data.master);
+      writeJson(STORAGE.history, data.history);
+      if (data.session) writeJson(STORAGE.session, data.session);
+      else localStorage.removeItem(STORAGE.session);
+    }
+
+    function migrateAndLoad() {
+      migrateLegacyStorage();
+
+      let data = readScopedData();
+      const meta = readJson(STORAGE.meta, () => ({ schemaVersion: 0 }));
+      let from = Number(meta.schemaVersion);
+      if (!Number.isFinite(from) || from < 0) from = 0;
+
+      while (from < SCHEMA_VERSION) {
+        const step = MIGRATIONS[from];
+        if (typeof step === "function") data = step(data) || data;
+        from += 1;
+      }
+
+      data = reconcileWithCatalog(data);
+      persistScopedData(data);
+
+      return {
+        ...data.master,
+        history: data.history,
+        session: data.session,
+      };
+    }
+
+    function loadState() {
+      return migrateAndLoad();
+    }
+
+    function saveMaster() {
+      writeJson(STORAGE.master, {
+        activePath: state.activePath,
+        levels: state.levels,
+        schedule: state.schedule,
+        baseline: state.baseline,
+      });
+    }
+
+    function saveHistory() {
+      writeJson(STORAGE.history, state.history);
+    }
+
+    function saveSession() {
+      if (state.session) writeJson(STORAGE.session, state.session);
+      else localStorage.removeItem(STORAGE.session);
+    }
+
     function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      saveMaster();
+      saveHistory();
+      saveSession();
+    }
+
+    function clearAllStorage() {
+      Object.values(STORAGE).forEach((key) => localStorage.removeItem(key));
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
     }
 
     let state = loadState();
@@ -1400,7 +1590,7 @@
       grid.querySelectorAll(".path-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           state.activePath = btn.dataset.path;
-          saveState();
+          saveMaster();
           renderHome();
         });
       });
@@ -1480,14 +1670,14 @@
         if (level >= prog.maxLevel) return;
         if (!confirm(`Naik ke Level ${level + 1}?`)) return;
         state.levels[prog.id] = level + 1;
-        saveState();
+        saveMaster();
         toast(`Naik ke Level ${level + 1}`);
         renderHome();
       });
       $("#btnDown")?.addEventListener("click", () => {
         if (level <= 1) return;
         state.levels[prog.id] = level - 1;
-        saveState();
+        saveMaster();
         toast(`Turun ke Level ${level - 1}`);
         renderHome();
       });
@@ -1512,7 +1702,7 @@
         startedAt: new Date().toISOString(),
         exercises,
       };
-      saveState();
+      saveSession();
       goTab("workout");
       renderWorkout();
       toast("Sesi mulai");
@@ -1580,7 +1770,7 @@
           </button>
           <div class="ex-body">
             <details class="fold" style="margin-bottom:0.45rem;border-color:var(--line)">
-              <summary>Cara lakukan</summary>
+              <summary>Petunjuk</summary>
               <div class="fold-body">
                 <p class="ex-desc">${g.desc}</p>
                 <ul class="ex-cues">${cues}</ul>
@@ -1622,7 +1812,7 @@
           state.session.exercises.forEach((ex) => {
             ex.open = ex.id === id ? !ex.open : false;
           });
-          saveState();
+          saveSession();
           renderWorkout();
         });
       });
@@ -1653,7 +1843,7 @@
           const ex = state.session.exercises.find((x) => x.id === id);
           if (!ex) return;
           ex[field] = input.type === "number" ? +input.value : input.value;
-          saveState();
+          saveSession();
         });
       });
 
@@ -1661,7 +1851,7 @@
       $("#btnCancel").addEventListener("click", () => {
         if (!confirm("Batalkan sesi?")) return;
         state.session = null;
-        saveState();
+        saveSession();
         stopRest();
         renderWorkout();
         toast("Sesi dibatalkan");
@@ -1679,7 +1869,7 @@
         });
         startRest(ex.rest);
       }
-      saveState();
+      saveSession();
       renderWorkout();
     }
 
@@ -1704,7 +1894,8 @@
       });
       state.history = state.history.slice(0, 60);
       state.session = null;
-      saveState();
+      saveHistory();
+      saveSession();
       stopRest();
       toast("Sesi tersimpan");
       goTab("history");
@@ -1766,7 +1957,7 @@
       $("#scheduleOptions").querySelectorAll("input").forEach((input) => {
         input.addEventListener("change", () => {
           state.schedule = input.value;
-          saveState();
+          saveMaster();
           renderSchedule();
         });
       });
@@ -1799,7 +1990,7 @@
       $("#baselineBlock").querySelectorAll("[data-bl]").forEach((cb) => {
         cb.addEventListener("change", () => {
           state.baseline[cb.dataset.bl] = cb.checked;
-          saveState();
+          saveMaster();
         });
       });
     }
@@ -1827,6 +2018,7 @@
     $("#btnReset").addEventListener("click", () => {
       if (!confirm("Hapus semua progress, riwayat, dan sesi?")) return;
       state = defaultState();
+      clearAllStorage();
       saveState();
       stopRest();
       renderHome();

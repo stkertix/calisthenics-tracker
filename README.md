@@ -52,7 +52,7 @@ python3 -m http.server 8080
 | **Jalur**  | Pilih Push / Pull / Squat / Muscle-up, lihat level, mulai sesi |
 | **Sesi**   | Checklist gerakan, set/rep, timer istirahat, catatan           |
 | **Jadwal** | Pola mingguan (stack / split / triplet) + baseline muscle-up   |
-| **Log**    | Riwayat sesi + reset data                                      |
+| **Log**    | Riwayat sesi, export/import JSON, reset data                   |
 
 Lainnya:
 

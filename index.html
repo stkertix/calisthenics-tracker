@@ -47,8 +47,11 @@
     <section id="panel-history" class="panel" role="tabpanel">
       <div class="panel-head"><h2>Riwayat</h2></div>
       <div id="historyList"></div>
-      <div class="actions" style="margin-top:0.65rem">
+      <div class="actions history-actions">
+        <button type="button" class="btn secondary" id="btnExportHistory">Export</button>
+        <button type="button" class="btn secondary" id="btnImportHistory">Import</button>
         <button type="button" class="btn ghost" id="btnReset">Reset data</button>
+        <input type="file" id="importHistoryFile" accept="application/json,.json" hidden />
       </div>
     </section>
 

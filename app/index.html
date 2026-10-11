@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5d000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Yellow Dude — Program Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #141414;
+      --ink-soft: #3a3a3a;
+      --paper: #f7f4ec;
+      --paper-2: #efe9da;
+      --line: #d6d0c0;
+      --yellow: #f5d000;
+      --yellow-deep: #e0b800;
+      --signal: #1f6b4a;
+      --alert: #b84a2b;
+      --rest: #2a5f8f;
+      --shadow: 0 1px 0 rgba(20, 20, 20, 0.06);
+      --radius: 10px;
+      --font-display: "Bebas Neue", Impact, sans-serif;
+      --font-body: "DM Sans", sans-serif;
+      --max: 720px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(245, 208, 0, 0.35), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(42, 95, 143, 0.12), transparent 50%),
+        linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+      -webkit-tap-highlight-color: rgba(245, 208, 0, 0.25);
+      touch-action: manipulation;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: repeating-linear-gradient(
+        -12deg,
+        transparent,
+        transparent 14px,
+        var(--ink) 14px,
+        var(--ink) 15px
+      );
+      z-index: 0;
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding:
+        calc(0.65rem + env(safe-area-inset-top))
+        calc(0.75rem + env(safe-area-inset-right))
+        calc(5.75rem + env(safe-area-inset-bottom))
+        calc(0.75rem + env(safe-area-inset-left));
+    }
+
+    /* —— Top status —— */
+    .hero {
+      padding: 0.15rem 0 0.45rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .hero-level {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    /* —— Bottom nav —— */
+    .tabs {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      display: flex;
+      gap: 0;
+      margin: 0;
+      padding:
+        0.35rem
+        env(safe-area-inset-right)
+        calc(0.35rem + env(safe-area-inset-bottom))
+        env(safe-area-inset-left);
+      background: var(--ink);
+      border-top: 2px solid var(--yellow);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 0;
+      min-height: 48px;
+      border: 0;
+      background: transparent;
+      color: rgba(247, 244, 236, 0.55);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.2rem;
+      cursor: pointer;
+    }
+    .tab[aria-selected="true"] {
+      background: transparent;
+      color: var(--yellow);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: 0.03em;
+      margin: 0 0 0.25rem;
+      line-height: 1;
+    }
+    .section-lead {
+      display: none;
+    }
+    .panel-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .panel-head h2 { margin: 0; }
+
+    /* —— Path picker —— */
+    .path-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem;
+      margin-bottom: 0.65rem;
+    }
+    .path-btn {
+      text-align: left;
+      border: 2px solid var(--ink);
+      background: rgba(255, 255, 255, 0.55);
+      padding: 0.55rem 0.65rem;
+      cursor: pointer;
+      min-height: 64px;
+    }
+    .path-btn.active {
+      background: var(--yellow);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .path-btn .code {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.04em;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.15rem;
+    }
+    .path-btn .meta {
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      line-height: 1.25;
+    }
+    .path-btn.active .meta { color: var(--ink); }
+    .path-btn .meta .rest-warn { color: var(--alert); font-weight: 700; }
+
+    .status-row { display: none; }
+    .pill-stat {
+      border: 1.5px solid var(--ink);
+      padding: 0.25rem 0.5rem;
+      background: rgba(255,255,255,0.5);
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+
+    /* —— Level —— */
+    .level-track {
+      display: flex;
+      gap: 0.3rem;
+      margin: 0 0 0.65rem;
+    }
+    .level-dot {
+      flex: 1;
+      height: 6px;
+      background: var(--line);
+      border: 1.5px solid var(--ink);
+    }
+    .level-dot.done { background: var(--signal); }
+    .level-dot.current {
+      background: var(--yellow);
+      transform: scaleY(1.4);
+    }
+
+    .level-card {
+      border: 2px solid var(--ink);
+      background: rgba(255, 255, 255, 0.7);
+      padding: 0.75rem 0.8rem 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .level-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin: 0 0 0.25rem;
+      letter-spacing: 0.03em;
+      line-height: 1.05;
+    }
+    .level-card > p {
+      margin: 0 0 0.5rem;
+      color: var(--ink-soft);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+    .criteria {
+      border-left: 3px solid var(--yellow);
+      padding: 0.2rem 0 0.2rem 0.55rem;
+      font-size: 0.8rem;
+      line-height: 1.35;
+      margin-bottom: 0.55rem;
+    }
+    .criteria strong { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.1rem; }
+
+    details.fold {
+      border: 1.5px solid var(--line);
+      background: rgba(255,255,255,0.4);
+      margin-bottom: 0.55rem;
+    }
+    details.fold > summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.65rem 0.7rem;
+      color: var(--ink-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 44px;
+    }
+    details.fold > summary::-webkit-details-marker { display: none; }
+    details.fold > summary::after { content: "+"; font-family: var(--font-display); font-size: 1.2rem; color: var(--ink); }
+    details.fold[open] > summary::after { content: "−"; }
+    details.fold .fold-body { padding: 0 0.55rem 0.55rem; }
+
+    .sticky-cta {
+      position: sticky;
+      bottom: calc(3.6rem + env(safe-area-inset-bottom));
+      z-index: 15;
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.45rem 0 0.15rem;
+      background: linear-gradient(180deg, transparent, var(--paper-2) 28%);
+    }
+    .sticky-cta .btn { flex: 1; }
+    .sticky-cta .btn.iconish { flex: 0 0 auto; min-width: 48px; padding-left: 0.65rem; padding-right: 0.65rem; }
+
+    .chain {
+      list-style: none;
+      margin: 0 0 1rem;
+      padding: 0;
+      counter-reset: step;
+    }
+    .chain li {
+      counter-increment: step;
+      display: flex;
+      gap: 0.65rem;
+      align-items: baseline;
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 0.9rem;
+    }
+    .chain li::before {
+      content: counter(step);
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      min-width: 1.4rem;
+      color: var(--ink-soft);
+    }
+
+    .chain-block { margin: 0; }
+    .chain-table-wrap {
+      border: 1.5px solid var(--ink);
+      background: rgba(255, 255, 255, 0.55);
+      overflow: hidden;
+      max-height: 40vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .chain-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .chain-table thead { display: none; }
+    .chain-table tr {
+      display: grid;
+      grid-template-columns: 1.8rem 1fr;
+      gap: 0 0.3rem;
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .chain-table tr:last-child { border-bottom: 0; }
+    .chain-table td {
+      border: 0;
+      padding: 0;
+      vertical-align: top;
+      line-height: 1.3;
+    }
+    .chain-table td:first-child { grid-row: 1 / span 2; }
+    .chain-table td:nth-child(3) { grid-column: 2; }
+    .chain-table .num {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1;
+      display: block;
+    }
+    .chain-table .move-name {
+      font-weight: 700;
+      font-size: 0.84rem;
+      display: inline;
+    }
+    .chain-table .move-desc {
+      display: none;
+      color: var(--ink-soft);
+      font-size: 0.75rem;
+      line-height: 1.35;
+      margin-top: 0.15rem;
+    }
+    details.fold[open] .chain-table .move-desc { display: block; }
+    .chain-table tr.is-focus { background: rgba(245, 208, 0, 0.3); }
+    .chain-table tr.is-focus .num { color: var(--ink); }
+    .chain-table tr.is-done .num { color: var(--signal); }
+    .chain-table tr.is-done .move-name { color: var(--ink-soft); font-weight: 500; }
+    .chain-badge {
+      display: inline-block;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink);
+      background: var(--yellow);
+      padding: 0.08rem 0.28rem;
+      line-height: 1.2;
+    }
+    .chain-table tr.is-done .chain-badge {
+      background: transparent;
+      color: var(--signal);
+      border-color: var(--signal);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .btn {
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: var(--yellow);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.88rem;
+      min-height: 44px;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      transition: transform 0.12s, background 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(1px); }
+    .btn.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+    .btn.secondary:hover { background: rgba(245, 208, 0, 0.3); }
+    .btn.ghost {
+      background: transparent;
+      color: var(--ink-soft);
+      border-color: var(--line);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* —— Workout —— */
+    .session-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+    .session-top h2 { margin: 0; font-size: 1.4rem; }
+    .session-progress {
+      margin: 0 0 0.55rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .session-progress .bar { margin-top: 0.3rem; }
+
+    .exercise-list { display: flex; flex-direction: column; gap: 0.35rem; }
+    .exercise {
+      border: 2px solid var(--ink);
+      background: rgba(255,255,255,0.7);
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .exercise:not(.open) {
+      opacity: 0.72;
+    }
+    .exercise.done {
+      background: rgba(31, 107, 74, 0.12);
+      opacity: 0.55;
+    }
+    .exercise.open {
+      opacity: 1;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .exercise-head {
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+      padding: 0.55rem 0.65rem;
+      cursor: pointer;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      min-height: 48px;
+    }
+    .check {
+      width: 1.45rem;
+      height: 1.45rem;
+      border: 2px solid var(--ink);
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: #fff;
+    }
+    .exercise.done .check {
+      background: var(--signal);
+      border-color: var(--signal);
+    }
+    .exercise.done .check::after {
+      content: "";
+      width: 0.35rem;
+      height: 0.65rem;
+      border: solid #fff;
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+    .ex-title { font-weight: 700; font-size: 0.92rem; margin: 0 0 0.1rem; line-height: 1.2; }
+    .ex-meta { font-size: 0.72rem; color: var(--ink-soft); margin: 0; line-height: 1.25; }
+    .ex-desc {
+      margin: 0 0 0.45rem;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--ink);
+      border-left: 3px solid var(--yellow);
+      padding-left: 0.55rem;
+    }
+    .ex-cues {
+      margin: 0 0 0.45rem;
+      padding: 0;
+      list-style: none;
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      line-height: 1.35;
+    }
+    .ex-cues li {
+      padding: 0.12rem 0 0.12rem 0.85rem;
+      position: relative;
+    }
+    .ex-cues li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45em;
+      width: 0.35rem;
+      height: 0.35rem;
+      background: var(--yellow);
+      border: 1px solid var(--ink);
+    }
+    .ex-body {
+      padding: 0 0.65rem 0.7rem;
+      display: none;
+      border-top: 1px solid var(--line);
+      padding-top: 0.55rem;
+    }
+    .exercise.open .ex-body { display: block; }
+    .ex-fields {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 0.9fr;
+      gap: 0.35rem;
+      margin-bottom: 0.4rem;
+    }
+    .ex-quick {
+      display: flex;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+    }
+    .ex-quick .btn { flex: 1; min-height: 42px; font-size: 0.8rem; padding: 0.5rem 0.4rem; }
+    .note-input { min-height: 2.2rem; }
+
+    .schedule-options label {
+      padding: 0.65rem !important;
+    }
+    .schedule-options span { font-size: 0.78rem !important; }
+    .week-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .week-chip {
+      border: 1.5px solid var(--ink);
+      background: rgba(255,255,255,0.6);
+      padding: 0.3rem 0.45rem;
+      font-size: 0.72rem;
+      line-height: 1.2;
+    }
+    .week-chip strong { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    @media (min-width: 720px) {
+      .section-lead { display: block; margin: 0 0 0.75rem; font-size: 0.9rem; color: var(--ink-soft); }
+      .chain-table .move-desc { display: block; }
+    }
+    label.field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--ink-soft);
+    }
+    label.field input, label.field textarea, .note-input {
+      font: inherit;
+      font-size: 16px; /* cegah auto-zoom iOS */
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      border: 1.5px solid var(--ink);
+      padding: 0.55rem 0.5rem;
+      background: #fff;
+      color: var(--ink);
+      width: 100%;
+      border-radius: 0;
+    }
+    .note-input { min-height: 2.5rem; resize: vertical; }
+
+    /* —— Rest timer —— */
+    .rest-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: calc(3.35rem + env(safe-area-inset-bottom));
+      z-index: 35;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.65rem 0.85rem;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      gap: 0.6rem;
+      border-top: 2px solid var(--yellow);
+      animation: slideUp 0.3s ease both;
+    }
+    .rest-bar.on { display: flex; }
+    .rest-time {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: var(--yellow);
+      min-width: 3.8rem;
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .rest-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.75; }
+    .rest-actions { display: flex; gap: 0.35rem; }
+    .rest-actions .btn { min-height: 40px; font-size: 0.78rem; padding: 0.4rem 0.65rem; }
+
+    .bar {
+      height: 5px;
+      background: var(--line);
+      border: 1.5px solid var(--ink);
+      overflow: hidden;
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--yellow);
+      transition: width 0.35s ease;
+    }
+
+    /* —— History / schedule —— */
+    .log-item {
+      border-bottom: 1px solid var(--line);
+      padding: 0.5rem 0;
+      font-size: 0.84rem;
+    }
+    .log-item time {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.1rem;
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+    }
+    .empty {
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      padding: 0.75rem 0;
+    }
+
+    .schedule-options {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
+    }
+    .schedule-options label {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      border: 2px solid var(--ink);
+      padding: 0.85rem;
+      background: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .schedule-options label:has(input:checked) {
+      background: rgba(245, 208, 0, 0.35);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .schedule-options input { margin-top: 0.2rem; accent-color: var(--ink); }
+    .schedule-options strong { display: block; margin-bottom: 0.2rem; }
+    .schedule-options span { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.4; }
+
+    .baseline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .baseline li {
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 0.92rem;
+    }
+    .baseline input {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: var(--signal);
+    }
+
+    .toast {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-120%);
+      background: var(--ink);
+      color: var(--yellow);
+      padding: 0.65rem 1.1rem;
+      font-weight: 700;
+      font-size: 0.88rem;
+      z-index: 40;
+      transition: transform 0.3s ease;
+      border: 2px solid var(--yellow);
+      max-width: 90vw;
+      text-align: center;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    .footer-note {
+      margin-top: 1.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      line-height: 1.4;
+      text-align: center;
+    }
+    .footer-note a { color: var(--rest); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="hero-level" id="heroLevel">L1</div>
+    </header>
+
+    <!-- HOME -->
+    <section id="panel-home" class="panel active" role="tabpanel">
+      <div class="path-grid" id="pathGrid"></div>
+      <div id="pathDetail"></div>
+    </section>
+
+    <!-- WORKOUT -->
+    <section id="panel-workout" class="panel" role="tabpanel">
+      <div id="workoutView"></div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="panel-schedule" class="panel" role="tabpanel">
+      <div class="panel-head"><h2>Jadwal</h2></div>
+      <div class="schedule-options" id="scheduleOptions"></div>
+      <div id="weekPreview"></div>
+      <div id="baselineBlock" style="margin-top:0.65rem"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="panel-history" class="panel" role="tabpanel">
+      <div class="panel-head"><h2>Riwayat</h2></div>
+      <div id="historyList"></div>
+      <div class="actions" style="margin-top:0.65rem">
+        <button type="button" class="btn ghost" id="btnReset">Reset data</button>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Ringkasan program Yellow Dude / Gravgear —
+      <a href="https://yellowdude.co" target="_blank" rel="noopener">yellowdude.co</a>.
+    </p>
+  </div>
+
+  <nav class="tabs" role="tablist" aria-label="Navigasi utama">
+    <button class="tab" role="tab" aria-selected="true" data-tab="home">Jalur</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="workout">Sesi</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="schedule">Jadwal</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="history">Log</button>
+  </nav>
+
+  <div class="rest-bar" id="restBar" aria-live="polite">
+    <div>
+      <div class="rest-label">Istirahat</div>
+      <div class="rest-time" id="restTime">0:00</div>
+    </div>
+    <div class="rest-actions">
+      <button type="button" class="btn secondary" id="restSkip" style="background:var(--yellow);color:var(--ink)">Selesai</button>
+      <button type="button" class="btn ghost" id="restAdd" style="color:var(--paper);border-color:#555">+30s</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const STORAGE_KEY = "yd-calisthenics-tracker-v1";
+
+    /** Deskripsi gerakan (ringkas) — dipakai di rantai progresi & sesi */
+    const MOVE_GUIDE = {
+      "plank hold": {
+        desc: "Tahan posisi tubuh lurus seperti papan untuk melatih core, bahu, dan glute. Fondasi kontrol tubuh sebelum push-up.",
+        cues: ["Badan satu garis kepala-tumit", "Scapula protracted (dorong lantai)", "Jangan biarkan pinggang melorot atau naik (pike)"],
+      },
+      "scapula push-ups": {
+        desc: "Lengan tetap lurus; gerakan hanya dari shoulder blade. Melatih stabilitas bahu untuk push-up yang aman.",
+        cues: ["Lengan terkunci lurus", "Retraksi lalu protraksi scapula", "Core tetap kencang"],
+      },
+      "negative push-ups": {
+        desc: "Fokus fase turun (eksentrik) secara lambat untuk membangun kekuatan sebelum push-up penuh.",
+        cues: ["Turun 3-5 detik merata", "Dada mendekati lantai dengan kontrol", "Naik boleh dibantu lutut / dorong ke atas"],
+      },
+      "normal push-ups": {
+        desc: "Push-up standar: tubuh lurus, tangan selebar bahu. Gerakan dasar kekuatan dorong tubuh.",
+        cues: ["Siku ~45° dari badan", "Core & glute aktif", "Dada hampir menyentuh lantai"],
+      },
+      "wide push-ups": {
+        desc: "Tangan lebih lebar dari bahu untuk menekankan dada dan bahu depan.",
+        cues: ["Tangan lebih lebar dari bahu", "Jaga garis tubuh", "Jangan biarkan bahu collaps"],
+      },
+      "diamond push-ups": {
+        desc: "Tangan rapat membentuk 'berlian'; beban lebih ke trisep dan dada dalam.",
+        cues: ["Ibu jari & telunjuk saling dekat", "Siku mendekat ke tubuh", "Core tetap kencang"],
+      },
+      "tricep extensions": {
+        desc: "Variasi dorong yang menekankan ekstensi siku untuk memperkuat trisep sebagai pendukung OAPU.",
+        cues: ["Gerakan dari siku, bukan bahu", "ROM penuh yang nyaman", "Jaga tulang belakang netral"],
+      },
+      "explosive push-ups": {
+        desc: "Push-up eksplosif untuk power. Dorong keras hingga tangan lepas / clap jika mampu.",
+        cues: ["Turun terkontrol, dorong cepat", "Mendarat dengan siku sedikit tekuk", "Mulai tanpa clap jika perlu"],
+      },
+      "archer push-ups": {
+        desc: "Satu lengan bekerja lebih berat sementara lengan lain melurus; jembatan menuju one-arm push-up.",
+        cues: ["Beban di lengan yang menekuk", "Lengan 'bow' hampir lurus", "Ganti sisi merata"],
+      },
+      "one-arm push-ups": {
+        desc: "Push-up satu lengan. Stance kaki lebar membantu balance; core harus sangat stabil.",
+        cues: ["Kaki lebar untuk stabilitas", "Bahu relatif sejajar (miring sedikit OK)", "Hindari rotasi berlebih"],
+      },
+      "warm-up: band pull-aparts / pull-downs": {
+        desc: "Pemanasan bahu & punggung dengan band: pull-apart overhead/horizontal dan pull-down.",
+        cues: ["Bahu turun, jangan shrug", "Kontrol tarikan & kembali", "Band ringan, fokus aktivasi"],
+      },
+      "bent-over rows": {
+        desc: "Tarikan horizontal (barbell/band) untuk membangun kekuatan punggung sebelum pull-up.",
+        cues: ["Punggung netral, hing hing", "Tarik ke tulang rusuk bawah", "Scapula retraksi di puncak"],
+      },
+      "passive hang": {
+        desc: "Gantung santai dengan lengan lurus untuk grip, bahu, dan toleransi hang.",
+        cues: ["Pakai semua jari termasuk kelingking", "Bahu rileks (active/passive sesuai tujuan)", "Kaki rileks, napas tenang"],
+      },
+      "scapula pull-ups": {
+        desc: "Dari dead hang, gerakkan hanya scapula (retraction + depression) tanpa menekuk siku.",
+        cues: ["Lengan tetap lurus", "Tarik bahu ke bawah-belakang", "Kontrol turun ke hang pasif"],
+      },
+      "australian pull-ups": {
+        desc: "Inverted row di bar rendah. Semakin horizontal tubuh, semakin sulit.",
+        cues: ["Badan lurus seperti papan", "Tarik dada ke bar", "Atur sudut kaki untuk progresi"],
+      },
+      "negative pull-ups": {
+        desc: "Mulai di atas bar, turun lambat ke hang. Membangun kekuatan eksentrik menuju pull-up.",
+        cues: ["Turun 5-10 detik", "Kontrol sepanjang ROM", "Naik bisa lompat / step-up"],
+      },
+      "band-assisted pull-ups": {
+        desc: "Pull-up dengan bantuan resistance band. Kurangi ketebalan band seiring kuat.",
+        cues: ["Dead hang penuh di bawah", "Tarik dada ke bar", "Jangan kick berlebihan"],
+      },
+      "pull-ups": {
+        desc: "Pull-up penuh dari dead hang hingga dagu melewati bar, dengan kontrol.",
+        cues: ["Mulai dead hang", "Core kencang (hindari swing besar)", "Turun penuh tiap rep"],
+      },
+      "australian + scapula (superset)": {
+        desc: "Superset: Australian pull-up lalu scapula pull-up tanpa istirahat antar keduanya.",
+        cues: ["Australian dulu untuk volume", "Scapula untuk kontrol bahu", "Istirahat hanya setelah keduanya"],
+      },
+      "bodyweight squats": {
+        desc: "Squat dua kaki standar untuk pola gerak, volume, dan daya tahan kaki.",
+        cues: ["Beban di tengah kaki (lebih ke tumit)", "Lutut sejajar jari kaki", "Dada tetap terbuka"],
+      },
+      "narrow-stance squats": {
+        desc: "Squat dengan stance sempit untuk menuntut kontrol balance dan mobilitas lebih tinggi.",
+        cues: ["Kaki lebih rapat dari biasa", "Jaga tumit mentok lantai", "Turun terkontrol"],
+      },
+      "deep squats": {
+        desc: "Squat dalam (di bawah parallel) untuk ROM dan kekuatan di posisi rendah. Jika kaku, utamakan mobility.",
+        cues: ["Turun sedalam yang aman", "Punggung tidak melengkung ekstrem", "Bisa pegang beban ringan untuk counterbalance"],
+      },
+      "bulgarian split squats": {
+        desc: "Squat satu kaki dengan kaki belakang di elevasi. Melatih kekuatan unilateral.",
+        cues: ["Mayoritas beban di kaki depan (~90%)", "Lutut depan mengikuti jari kaki", "Badan sedikit condong ke depan OK"],
+      },
+      "cossack squats": {
+        desc: "Squat lateral ke satu sisi dengan kaki lain lurus. Melatih ROM pinggul dan kekuatan samping.",
+        cues: ["Turun ke satu sisi penuh", "Kaki lain tetap lurus / tumit boleh angkat", "Ganti sisi merata"],
+      },
+      "pistol easier variant (box / assisted / eccentric)": {
+        desc: "Variasi lebih mudah menuju pistol: box pistol, dibantu pegangan, atau turun eksentrik lambat.",
+        cues: ["Pilih variasi yang formnya bersih", "Lutut tidak collapse ke dalam", "Kaki bebas tidak menyentuh lantai"],
+      },
+      "pistol easier variant": {
+        desc: "Variasi pistol yang dimudahkan (box / assisted / eccentric) untuk volume setelah attempt penuh.",
+        cues: ["Kualitas lebih penting dari kedalaman ekstrem", "Tekanan kaki merata (jari-tumit)", "Hindari knee valgus"],
+      },
+      "pistol squats": {
+        desc: "Squat satu kaki penuh dengan kaki lain terangkat. Butuh kekuatan, balance, dan mobilitas.",
+        cues: ["Lengan ke depan untuk balance", "Turun & naik terkontrol", "Kaki bebas tidak menyentuh lantai"],
+      },
+      "standard pull-ups": {
+        desc: "Pull-up bersih sebagai fondasi tinggi tarikan untuk muscle-up.",
+        cues: ["Rep bersih > volume longgar", "Hollow body membantu stabilitas", "Full hang tiap rep"],
+      },
+      "chest-to-bar / high pull-ups": {
+        desc: "Tarik hingga dada mendekati / menyentuh bar. Melatih tinggi yang dibutuhkan untuk transisi muscle-up.",
+        cues: ["Tarik eksplosif ke atas", "Dada ke bar, bukan hanya dagu", "Turun terkontrol"],
+      },
+      "high / chest-to-bar pull-ups": {
+        desc: "Variasi high pull untuk menghubungkan power pull dengan zona transisi.",
+        cues: ["Momentum tetap ke atas, bukan ke belakang", "Wajah menghadap depan", "Kaki rapat, hindari kick berlebih"],
+      },
+      "high pull-ups": {
+        desc: "Pull eksplosif setinggi mungkin di atas garis dada untuk membuka ruang flip.",
+        cues: ["Power di awal tarikan", "Bar dekat ke tubuh", "Latihan juga dengan jumping pull-up jika perlu"],
+      },
+      "explosive pull-ups (high)": {
+        desc: "Pull-up eksplosif dengan target tinggi maksimal sebelum mencoba muscle-up penuh.",
+        cues: ["Dead hang → tarik cepat", "Usahakan sternum ke bar", "Kualitas tiap rep"],
+      },
+      "band-assisted dips": {
+        desc: "Dip di bar/parallel dengan bantuan band untuk membangun kekuatan dorong di atas bar.",
+        cues: ["Lutut tetap extended pada band", "Turun hingga bahu ~ setinggi siku", "Jangan shrug berlebih"],
+      },
+      "negative dips": {
+        desc: "Fase turun dip secara lambat untuk kekuatan di posisi bawah (titik kritis muscle-up).",
+        cues: ["Turun 3-5+ detik", "Usahakan lebih dalam dari parallel", "Naik boleh dibantu"],
+      },
+      "straight bar dips": {
+        desc: "Dip di satu bar lurus; tubuh bergeser dari condong ke tegak. Spesifik untuk finish muscle-up.",
+        cues: ["Mulai dari support di atas bar", "Turun dalam, press ke atas tall", "Bar dekat ke tubuh"],
+      },
+      "straight bar dips (deep)": {
+        desc: "Straight bar dip dengan penekanan kedalaman bahu mendekati bar.",
+        cues: ["Bahu mendekati bar di bawah", "Press full lockout", "Kontrol, bukan bounce"],
+      },
+      "bar lean-overs": {
+        desc: "Drill transisi: condongkan dada melewati bar dan latih 'flip' pergelangan / posisi siku di atas bar.",
+        cues: ["Mulai dari negative lean jika perlu", "Dada ke depan atas bar", "Hindari chicken-wing satu sisi"],
+      },
+      "bar lean-overs / assisted muscle-up": {
+        desc: "Gabungan drill lean-over dan muscle-up dibantu (band/lompat) untuk menyambung pull-flip-press.",
+        cues: ["Tinggi pull dulu, baru flip", "Tekan ke bawah pada bar", "Satu rangkaian mulus"],
+      },
+      "jumping / band-assisted muscle-ups": {
+        desc: "Muscle-up dengan lompatan atau band agar pola gerak penuh terlatih sebelum kekuatan murni cukup.",
+        cues: ["Swing/hollow → pull → flip → press", "Bantuan seminimal mungkin", "Full stretch di bawah untuk power"],
+      },
+      "hollow body hold": {
+        desc: "Tahan posisi hollow (punggung bawah ke lantai, kaki & bahu sedikit angkat) untuk core muscle-up.",
+        cues: ["Lower back menempel lantai", "Tulang rusuk turun", "Napas tetap mengalir"],
+      },
+      "hanging leg raise": {
+        desc: "Angkat kaki dari hang untuk core kompresi dan kontrol tubuh di bar.",
+        cues: ["Minimal swing", "Progress: tuck → straight", "Scapula stabil saat angkat"],
+      },
+      "hollow + hanging leg raise": {
+        desc: "Finisher core: hollow hold dilanjut hanging leg raise.",
+        cues: ["Hollow berkualitas dulu", "HLR tanpa mengayun liar", "Istirahat setelah keduanya"],
+      },
+      "core finisher (hollow / hlr)": {
+        desc: "Penutup sesi: hollow hold dan/atau hanging leg raise untuk stamina core.",
+        cues: ["Form > jumlah", "Jaga hang aktif", "Akhiri sebelum form rusak"],
+      },
+      "muscle-up attempts (quality)": {
+        desc: "Attempt muscle-up penuh dengan fokus kualitas: swing/hollow → pull keras → lean/flip → press tall.",
+        cues: ["Jangan kejar volume jelek", "Reset tiap attempt", "Jika gagal, perbaiki fase yang pecah"],
+      },
+    };
+
+    function normalizeMoveKey(name) {
+      return String(name || "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function guideFor(name) {
+      const key = normalizeMoveKey(name);
+      if (MOVE_GUIDE[key]) return MOVE_GUIDE[key];
+      // fuzzy: cari key yang terkandung di nama / sebaliknya
+      const hit = Object.keys(MOVE_GUIDE).find(
+        (k) => key.includes(k) || k.includes(key)
+      );
+      return hit
+        ? MOVE_GUIDE[hit]
+        : {
+            desc: "Lakukan dengan kontrol penuh. Utamakan form bersih sebelum menambah volume.",
+            cues: ["ROM penuh yang aman", "Napas teratur", "Stop jika nyeri tajam"],
+          };
+    }
+
+    const PROGRAMS = {
+      push: {
+        id: "push",
+        name: "Push",
+        goal: "One-Arm Push-Up",
+        blurb: "Dari plank & negative hingga OAPU.",
+        maxLevel: 5,
+        chain: [
+          "Plank hold",
+          "Scapula push-ups",
+          "Negative push-ups",
+          "Normal push-ups",
+          "Wide push-ups",
+          "Diamond push-ups",
+          "Tricep extensions",
+          "Explosive push-ups",
+          "Archer push-ups",
+          "One-arm push-ups",
+        ],
+        levels: {
+          1: {
+            focus: "Negative + normal + plank",
+            advance: "Selesaikan negative ≈8 rep dengan kontrol.",
+            exercises: [
+              { name: "Negative push-ups", sets: 3, reps: "8", tempo: "4s turun", rest: 120, note: "Turun 3-5 detik, form lurus." },
+              { name: "Normal push-ups", sets: 3, reps: "sebisanya", tempo: "2010", rest: 120 },
+              { name: "Plank hold", sets: 3, reps: "30-60s", tempo: "hold", rest: 90 },
+            ],
+          },
+          2: {
+            focus: "Normal + diamond + plank",
+            advance: "≈12 normal push-up form bersih.",
+            exercises: [
+              { name: "Normal push-ups", sets: 3, reps: "12", tempo: "2010", rest: 120 },
+              { name: "Diamond push-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 120 },
+              { name: "Plank hold", sets: 3, reps: "60s", tempo: "hold", rest: 90 },
+            ],
+          },
+          3: {
+            focus: "Wide / diamond / explosive",
+            advance: "Selesaikan semua set/rep level ini.",
+            exercises: [
+              { name: "Wide push-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 120 },
+              { name: "Diamond push-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 120 },
+              { name: "Explosive push-ups", sets: 3, reps: "6", tempo: "1010", rest: 120 },
+              { name: "Tricep extensions", sets: 3, reps: "8", tempo: "2010", rest: 90 },
+            ],
+          },
+          4: {
+            focus: "Archer + volume + plank 60s",
+            advance: "Set/rep selesai + plank 1 menit bersih.",
+            exercises: [
+              { name: "Archer push-ups", sets: 3, reps: "4 / lengan", tempo: "2010", rest: 150 },
+              { name: "Diamond push-ups", sets: 3, reps: "10", tempo: "2010", rest: 120 },
+              { name: "Normal push-ups", sets: 3, reps: "10", tempo: "2010", rest: 120 },
+              { name: "Plank hold", sets: 3, reps: "60s", tempo: "hold", rest: 90 },
+            ],
+          },
+          5: {
+            focus: "One-arm push-ups (fokus utama)",
+            advance: "Selesaikan routine; naikkan rep OAPU bertahap.",
+            exercises: [
+              { name: "One-arm push-ups", sets: 4, reps: "2-5 / lengan", tempo: "2010", rest: 180 },
+              { name: "Archer push-ups", sets: 3, reps: "4 / lengan", tempo: "2010", rest: 120 },
+              { name: "Diamond push-ups", sets: 3, reps: "8", tempo: "2010", rest: 120 },
+              { name: "Plank hold", sets: 2, reps: "60s", tempo: "hold", rest: 90 },
+            ],
+          },
+        },
+      },
+      pull: {
+        id: "pull",
+        name: "Pull",
+        goal: "Pull-Up bersih",
+        blurb: "Hang, row, assisted, hingga pull-up penuh.",
+        maxLevel: 5,
+        chain: [
+          "Bent-over rows",
+          "Passive hang",
+          "Scapula pull-ups",
+          "Australian pull-ups",
+          "Negative pull-ups",
+          "Band-assisted pull-ups",
+          "Pull-ups",
+        ],
+        warmup: ["Banded overhead pull-aparts", "Banded horizontal pull-aparts", "Banded pull-downs"],
+        levels: {
+          1: {
+            focus: "Rows + passive hang",
+            advance: "Row ≈30-40 kg sesuai set/rep + hang ~60s.",
+            exercises: [
+              { name: "Warm-up: band pull-aparts / pull-downs", sets: 2, reps: "12-15", tempo: "smooth", rest: 45 },
+              { name: "Bent-over rows", sets: 3, reps: "12-15", tempo: "2010", rest: 180 },
+              { name: "Passive hang", sets: 3, reps: "30-60s", tempo: "hold", rest: 90 },
+            ],
+          },
+          2: {
+            focus: "Australian + scapula",
+            advance: "Australian hampir horizontal, set/rep terpenuhi.",
+            exercises: [
+              { name: "Australian pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 120 },
+              { name: "Scapula pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 90 },
+              { name: "Passive hang", sets: 2, reps: "45-60s", tempo: "hold", rest: 90 },
+            ],
+          },
+          3: {
+            focus: "Band-assisted + Australian + scapula",
+            advance: "Band tipis (~10 kg) masih cukup untuk target.",
+            exercises: [
+              { name: "Band-assisted pull-ups", sets: 3, reps: "6-8", tempo: "2010", rest: 150 },
+              { name: "Australian pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 120 },
+              { name: "Scapula pull-ups", sets: 3, reps: "10-12", tempo: "2010", rest: 90 },
+            ],
+          },
+          4: {
+            focus: "Negative panjang + assisted",
+            advance: "5× negative ~10 detik → siap pull-up penuh.",
+            exercises: [
+              { name: "Negative pull-ups", sets: 5, reps: "1", tempo: "8-10s turun", rest: 90 },
+              { name: "Band-assisted pull-ups", sets: 3, reps: "6-8", tempo: "2010", rest: 150 },
+              { name: "Australian pull-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 120 },
+              { name: "Passive hang", sets: 2, reps: "30s", tempo: "hold", rest: 60 },
+            ],
+          },
+          5: {
+            focus: "Pull-ups + volume pendukung",
+            advance: "Naikkan volume bertahap (mis. 3×3 → 3×4).",
+            exercises: [
+              { name: "Pull-ups", sets: 5, reps: "2-5", tempo: "2010", rest: 180 },
+              { name: "Band-assisted pull-ups", sets: 3, reps: "8-10", tempo: "2010", rest: 150 },
+              { name: "Australian + scapula (superset)", sets: 3, reps: "8 + 8", tempo: "2010", rest: 150 },
+              { name: "Passive hang", sets: 2, reps: "30-45s", tempo: "hold", rest: 60 },
+            ],
+          },
+        },
+      },
+      squat: {
+        id: "squat",
+        name: "Squat",
+        goal: "Pistol Squat",
+        blurb: "Bilateral → unilateral → pistol penuh.",
+        maxLevel: 5,
+        chain: [
+          "Bodyweight squats",
+          "Narrow-stance squats",
+          "Deep squats",
+          "Bulgarian split squats",
+          "Cossack squats",
+          "Pistol easier variants",
+          "Pistol squats",
+        ],
+        levels: {
+          1: {
+            focus: "Narrow + deep + BW squat",
+            advance: "Routine selesai. Deep sulit? Fokus mobility dulu.",
+            exercises: [
+              { name: "Narrow-stance squats", sets: 3, reps: "12", tempo: "2010", rest: 120 },
+              { name: "Deep squats", sets: 3, reps: "12", tempo: "2010", rest: 120 },
+              { name: "Bodyweight squats", sets: 3, reps: "15", tempo: "2010", rest: 90 },
+            ],
+          },
+          2: {
+            focus: "Bulgarian + deep / narrow",
+            advance: "≈6 Bulgarian split squat per kaki.",
+            exercises: [
+              { name: "Bulgarian split squats", sets: 3, reps: "6 / kaki", tempo: "3010", rest: 150 },
+              { name: "Deep squats", sets: 3, reps: "10", tempo: "3010", rest: 120 },
+              { name: "Narrow-stance squats", sets: 3, reps: "10", tempo: "2010", rest: 90 },
+            ],
+          },
+          3: {
+            focus: "Cossack + Bulgarian + deep",
+            advance: "≈6 Cossack per sisi + sisa workout.",
+            exercises: [
+              { name: "Cossack squats", sets: 3, reps: "6 / sisi", tempo: "2010", rest: 120 },
+              { name: "Bulgarian split squats", sets: 3, reps: "8 / kaki", tempo: "2010", rest: 150 },
+              { name: "Deep squats", sets: 3, reps: "10-12", tempo: "3010", rest: 120 },
+            ],
+          },
+          4: {
+            focus: "Variasi pistol mudah + unilateral",
+            advance: "≈10 rep variasi mudah (atau eccentric ~4s) → coba pistol.",
+            exercises: [
+              { name: "Pistol easier variant (box / assisted / eccentric)", sets: 3, reps: "8-10 / kaki", tempo: "3010 / 4s", rest: 120 },
+              { name: "Cossack squats", sets: 3, reps: "8 / sisi", tempo: "2010", rest: 100 },
+              { name: "Bulgarian split squats", sets: 3, reps: "10 / kaki", tempo: "2010", rest: 120 },
+              { name: "Deep squats", sets: 2, reps: "12", tempo: "3010", rest: 100 },
+            ],
+          },
+          5: {
+            focus: "Pistol + volume pendukung",
+            advance: "Target bertahap hingga ~8 pistol per kaki.",
+            exercises: [
+              { name: "Pistol squats", sets: 3, reps: "3-8 / kaki", tempo: "2020", rest: 150 },
+              { name: "Pistol easier variant", sets: 2, reps: "6 / kaki", tempo: "3010", rest: 120 },
+              { name: "Cossack squats", sets: 3, reps: "8 / sisi", tempo: "2010", rest: 100 },
+              { name: "Deep squats", sets: 3, reps: "10", tempo: "3010", rest: 100 },
+            ],
+          },
+        },
+      },
+      muscleup: {
+        id: "muscleup",
+        name: "Muscle-up",
+        goal: "Bar muscle-up bersih",
+        blurb: "Pull → flip → push. Weekly L1-3 atau 5-level routine.",
+        maxLevel: 5,
+        chain: [
+          "Standard pull-ups",
+          "Chest-to-bar / high pull-ups",
+          "Band-assisted dips",
+          "Negative / straight bar dips",
+          "Bar lean-overs",
+          "Assisted / jumping muscle-ups",
+          "Hollow + hanging leg raise",
+          "Full muscle-up",
+        ],
+        levels: {
+          1: {
+            focus: "Base — kekuatan & kontrol dasar",
+            advance: "Form bersih di semua gerakan; siap naik jika pull & dip stabil.",
+            exercises: [
+              { name: "Standard pull-ups", sets: 5, reps: "3-5", tempo: "31X1", rest: 90 },
+              { name: "Band-assisted dips", sets: 4, reps: "6-8", tempo: "2121", rest: 60 },
+              { name: "Bar lean-overs", sets: 4, reps: "6", tempo: "2121", rest: 45 },
+              { name: "Hollow body hold", sets: 4, reps: "20s", tempo: "hold", rest: 30 },
+              { name: "Plank hold", sets: 3, reps: "40s", tempo: "hold", rest: 30 },
+            ],
+          },
+          2: {
+            focus: "Explosive pull + transisi",
+            advance: "Chest-to-bar / high pull terasa; dip lebih dalam.",
+            exercises: [
+              { name: "Chest-to-bar / high pull-ups", sets: 5, reps: "3-5", tempo: "20X1", rest: 90 },
+              { name: "Negative dips", sets: 4, reps: "5-6", tempo: "4010", rest: 60 },
+              { name: "Band-assisted dips", sets: 3, reps: "8", tempo: "2121", rest: 60 },
+              { name: "Bar lean-overs", sets: 4, reps: "6", tempo: "2121", rest: 45 },
+              { name: "Hollow body hold", sets: 4, reps: "30-40s", tempo: "hold", rest: 30 },
+            ],
+          },
+          3: {
+            focus: "Knocking — timing & flip",
+            advance: "Hubungkan pull-flip-press di bawah fatigue.",
+            exercises: [
+              { name: "High / chest-to-bar pull-ups", sets: 5, reps: "4-5", tempo: "20X1", rest: 90 },
+              { name: "Straight bar dips", sets: 4, reps: "6-8", tempo: "2121", rest: 75 },
+              { name: "Bar lean-overs / assisted muscle-up", sets: 4, reps: "4-6", tempo: "controlled", rest: 60 },
+              { name: "Hanging leg raise", sets: 3, reps: "8-10", tempo: "2010", rest: 45 },
+              { name: "Hollow body hold", sets: 3, reps: "30s", tempo: "hold", rest: 30 },
+            ],
+          },
+          4: {
+            focus: "5-level routine — hampir utuh",
+            advance: "Semua gerakan selesai form baik, tanpa rest ekstra.",
+            exercises: [
+              { name: "Explosive pull-ups (high)", sets: 5, reps: "3-4", tempo: "X", rest: 120 },
+              { name: "Straight bar dips (deep)", sets: 4, reps: "8-10", tempo: "2121", rest: 90 },
+              { name: "Jumping / band-assisted muscle-ups", sets: 5, reps: "2-4", tempo: "smooth", rest: 120 },
+              { name: "Bar lean-overs", sets: 3, reps: "6", tempo: "2121", rest: 45 },
+              { name: "Hollow + hanging leg raise", sets: 3, reps: "30s + 8", tempo: "mix", rest: 45 },
+            ],
+          },
+          5: {
+            focus: "Siap attempt muscle-up",
+            advance: "Level 5 bersih ≈ attempt pertama yang rapi.",
+            exercises: [
+              { name: "Muscle-up attempts (quality)", sets: 6, reps: "1-2", tempo: "full sequence", rest: 150 },
+              { name: "High pull-ups", sets: 3, reps: "4", tempo: "20X1", rest: 90 },
+              { name: "Straight bar dips", sets: 3, reps: "8", tempo: "2121", rest: 75 },
+              { name: "Core finisher (hollow / HLR)", sets: 3, reps: "30s / 10", tempo: "hold", rest: 40 },
+            ],
+          },
+        },
+      },
+    };
+
+    const SCHEDULES = [
+      {
+        id: "stack",
+        title: "Stack",
+        desc: "Satu sesi: Push → Pull → Squat. ~1-1,5 jam. Skill prioritas dikerjakan pertama.",
+        week: ["Push+Pull+Squat", "Istirahat", "Push+Pull+Squat", "Istirahat", "Push+Pull+Squat", "Istirahat", "Istirahat"],
+      },
+      {
+        id: "split",
+        title: "One day, one routine",
+        desc: "Senin Push, Selasa Pull, Rabu Squat, ulangi; Minggu istirahat. Sesi ~30 menit.",
+        week: ["Push", "Pull", "Squat", "Push", "Pull", "Squat", "Istirahat"],
+      },
+      {
+        id: "triplet",
+        title: "Triplet antagonis",
+        desc: "Push + Pull + Squat bergantian, rest ~40s. Sesi ~30-45 menit.",
+        week: ["Triplet PPS", "Istirahat", "Triplet PPS", "Istirahat", "Triplet PPS", "Opsional", "Istirahat"],
+      },
+    ];
+
+    const BASELINE = [
+      { id: "pu10", label: "~10 pull-up bersih" },
+      { id: "ctb5", label: "~5 chest-to-bar (bonus)" },
+      { id: "dip10", label: "~10 straight bar dips dalam" },
+      { id: "hollow30", label: "Hollow body hold ~30s" },
+      { id: "hlr10", label: "~10 hanging leg raise" },
+    ];
+
+    const DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
+
+    function defaultState() {
+      return {
+        activePath: "push",
+        levels: { push: 1, pull: 1, squat: 1, muscleup: 1 },
+        schedule: "split",
+        baseline: {},
+        history: [],
+        session: null,
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return defaultState();
+        return { ...defaultState(), ...JSON.parse(raw) };
+      } catch {
+        return defaultState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    let state = loadState();
+    let restTimer = null;
+    let restLeft = 0;
+
+    const $ = (sel) => document.querySelector(sel);
+
+    function toast(msg) {
+      const el = $("#toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove("show"), 2200);
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleString("id-ID", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+
+    function hoursSince(iso) {
+      if (!iso) return Infinity;
+      return (Date.now() - new Date(iso).getTime()) / 36e5;
+    }
+
+    function lastSessionFor(pathId) {
+      return state.history.find((h) => h.path === pathId);
+    }
+
+    /* —— Tabs —— */
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach((t) => t.setAttribute("aria-selected", "false"));
+        tab.setAttribute("aria-selected", "true");
+        document.querySelectorAll(".panel").forEach((p) => p.classList.remove("active"));
+        $(`#panel-${tab.dataset.tab}`).classList.add("active");
+        if (tab.dataset.tab === "workout") renderWorkout();
+        if (tab.dataset.tab === "history") renderHistory();
+        if (tab.dataset.tab === "schedule") renderSchedule();
+        if (tab.dataset.tab === "home") renderHome();
+      });
+    });
+
+    function goTab(name) {
+      document.querySelector(`.tab[data-tab="${name}"]`)?.click();
+    }
+
+    /* —— Home —— */
+    function renderHome() {
+      const grid = $("#pathGrid");
+      grid.innerHTML = Object.values(PROGRAMS)
+        .map((p) => {
+          const lvl = state.levels[p.id] || 1;
+          const last = lastSessionFor(p.id);
+          const restH = hoursSince(last?.endedAt);
+          const restNote =
+            restH < 48
+              ? `<span class="rest-warn">Istirahat ${Math.max(0, Math.ceil(48 - restH))}j</span>`
+              : `L${lvl}/${p.maxLevel}`;
+          return `
+            <button type="button" class="path-btn ${state.activePath === p.id ? "active" : ""}" data-path="${p.id}">
+              <span class="code">${p.name}</span>
+              <span class="meta">${p.goal}<br>${restNote}</span>
+            </button>`;
+        })
+        .join("");
+
+      grid.querySelectorAll(".path-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.activePath = btn.dataset.path;
+          saveState();
+          renderHome();
+        });
+      });
+
+      const prog = PROGRAMS[state.activePath];
+      const level = state.levels[prog.id] || 1;
+      const info = prog.levels[level];
+      $("#heroLevel").textContent = `${prog.name} · L${level}`;
+
+      const dots = Array.from({ length: prog.maxLevel }, (_, i) => {
+        const n = i + 1;
+        const cls = n < level ? "done" : n === level ? "current" : "";
+        return `<div class="level-dot ${cls}" title="Level ${n}"></div>`;
+      }).join("");
+
+      const focusIdx = Math.min(
+        prog.chain.length - 1,
+        Math.max(0, Math.round(((level - 1) / Math.max(1, prog.maxLevel - 1)) * (prog.chain.length - 1)))
+      );
+      const chainRows = prog.chain
+        .map((step, i) => {
+          const g = guideFor(step);
+          const isFocus = i === focusIdx;
+          const isDone = i < focusIdx;
+          const isGoal = i === prog.chain.length - 1;
+          const rowClass = [isFocus ? "is-focus" : "", isDone ? "is-done" : ""]
+            .filter(Boolean)
+            .join(" ");
+          const badge = isFocus
+            ? `<span class="chain-badge">Fokus</span>`
+            : isGoal
+              ? `<span class="chain-badge">Goal</span>`
+              : "";
+          return `
+            <tr class="${rowClass}">
+              <td><span class="num">${i + 1}</span></td>
+              <td>
+                <span class="move-name">${step}</span>${badge}
+              </td>
+              <td><span class="move-desc">${g.desc}</span></td>
+            </tr>`;
+        })
+        .join("");
+
+      $("#pathDetail").innerHTML = `
+        <div class="level-track" aria-hidden="true">${dots}</div>
+        <div class="level-card">
+          <h3>L${level} · ${info.focus}</h3>
+          <div class="criteria">
+            <strong>Naik level bila</strong>
+            ${info.advance}
+          </div>
+          <details class="fold">
+            <summary>Rantai progresi (${prog.chain.length})</summary>
+            <div class="fold-body">
+              <div class="chain-table-wrap">
+                <table class="chain-table">
+                  <tbody>${chainRows}</tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+          <details class="fold">
+            <summary>Level + / −</summary>
+            <div class="fold-body actions" style="padding-top:0.35rem">
+              <button type="button" class="btn secondary" id="btnAdvance" ${level >= prog.maxLevel ? "disabled" : ""}>Naik level</button>
+              <button type="button" class="btn ghost" id="btnDown" ${level <= 1 ? "disabled" : ""}>Turun level</button>
+            </div>
+          </details>
+        </div>
+        <div class="sticky-cta">
+          <button type="button" class="btn" id="btnStart">Mulai L${level}</button>
+        </div>`;
+
+      $("#btnStart").addEventListener("click", () => startSession());
+      $("#btnAdvance")?.addEventListener("click", () => {
+        if (level >= prog.maxLevel) return;
+        if (!confirm(`Naik ke Level ${level + 1}?`)) return;
+        state.levels[prog.id] = level + 1;
+        saveState();
+        toast(`Naik ke Level ${level + 1}`);
+        renderHome();
+      });
+      $("#btnDown")?.addEventListener("click", () => {
+        if (level <= 1) return;
+        state.levels[prog.id] = level - 1;
+        saveState();
+        toast(`Turun ke Level ${level - 1}`);
+        renderHome();
+      });
+    }
+
+    /* —— Session —— */
+    function startSession() {
+      const prog = PROGRAMS[state.activePath];
+      const level = state.levels[prog.id] || 1;
+      const exercises = prog.levels[level].exercises.map((ex, i) => ({
+        ...ex,
+        id: i,
+        done: false,
+        open: i === 0,
+        loggedSets: ex.sets,
+        loggedReps: ex.reps,
+        loggedNote: "",
+      }));
+      state.session = {
+        path: prog.id,
+        level,
+        startedAt: new Date().toISOString(),
+        exercises,
+      };
+      saveState();
+      goTab("workout");
+      renderWorkout();
+      toast("Sesi mulai");
+    }
+
+    function renderWorkout() {
+      const view = $("#workoutView");
+      if (!state.session) {
+        const prog = PROGRAMS[state.activePath];
+        const level = state.levels[prog.id];
+        $("#heroLevel").textContent = `${prog.name} · L${level}`;
+        view.innerHTML = `
+          <div class="level-card">
+            <h3>Belum ada sesi</h3>
+            <p>${prog.name} Level ${level} siap dimulai.</p>
+          </div>
+          <div class="sticky-cta">
+            <button type="button" class="btn" id="btnStartEmpty">Mulai L${level}</button>
+          </div>`;
+        $("#btnStartEmpty").addEventListener("click", startSession);
+        return;
+      }
+
+      const prog = PROGRAMS[state.session.path];
+      const doneCount = state.session.exercises.filter((e) => e.done).length;
+      const total = state.session.exercises.length;
+      const pct = Math.round((doneCount / total) * 100);
+      const current = state.session.exercises.find((e) => e.open) || state.session.exercises.find((e) => !e.done);
+      $("#heroLevel").textContent = `${prog.name} · L${state.session.level}`;
+
+      view.innerHTML = `
+        <div class="session-top">
+          <h2>${prog.name} L${state.session.level}</h2>
+          <span class="pill-stat">${doneCount}/${total}</span>
+        </div>
+        <div class="session-progress">
+          <div class="bar"><i style="width:${pct}%"></i></div>
+        </div>
+        <div class="exercise-list" id="exerciseList"></div>
+        <div class="sticky-cta">
+          <button type="button" class="btn" id="btnFinish" ${doneCount === 0 ? "disabled" : ""}>Simpan</button>
+          <button type="button" class="btn ghost iconish" id="btnCancel" title="Batalkan">✕</button>
+        </div>`;
+
+      const list = $("#exerciseList");
+      // Compact: current open first, then the rest
+      const ordered = [...state.session.exercises].sort((a, b) => {
+        if (a.open && !b.open) return -1;
+        if (!a.open && b.open) return 1;
+        return a.id - b.id;
+      });
+
+      list.innerHTML = ordered
+        .map((ex) => {
+          const g = guideFor(ex.name);
+          const cues = (g.cues || []).map((c) => `<li>${c}</li>`).join("");
+          return `
+        <div class="exercise ${ex.done ? "done" : ""} ${ex.open ? "open" : ""}" data-id="${ex.id}">
+          <button type="button" class="exercise-head" data-toggle="${ex.id}">
+            <span class="check" data-check="${ex.id}" aria-hidden="true"></span>
+            <span style="flex:1;min-width:0">
+              <p class="ex-title">${ex.name}</p>
+              <p class="ex-meta">${ex.sets}×${ex.reps} · ${ex.tempo} · ${ex.rest}s</p>
+            </span>
+          </button>
+          <div class="ex-body">
+            <details class="fold" style="margin-bottom:0.45rem;border-color:var(--line)">
+              <summary>Cara lakukan</summary>
+              <div class="fold-body">
+                <p class="ex-desc">${g.desc}</p>
+                <ul class="ex-cues">${cues}</ul>
+              </div>
+            </details>
+            <div class="ex-fields">
+              <label class="field">Set<input type="number" min="1" data-field="loggedSets" data-id="${ex.id}" value="${ex.loggedSets}" /></label>
+              <label class="field">Rep<input type="text" data-field="loggedReps" data-id="${ex.id}" value="${ex.loggedReps}" /></label>
+              <label class="field">Rest<input type="number" min="0" data-rest="${ex.id}" value="${ex.rest}" /></label>
+            </div>
+            <details class="fold" style="margin-bottom:0.4rem;border-color:var(--line)">
+              <summary>Catatan</summary>
+              <div class="fold-body">
+                <textarea class="note-input" data-field="loggedNote" data-id="${ex.id}" placeholder="Form, RPE, band…">${ex.loggedNote || ""}</textarea>
+              </div>
+            </details>
+            <div class="ex-quick">
+              <button type="button" class="btn secondary" data-mark="${ex.id}">${ex.done ? "Batal ✓" : "Selesai ✓"}</button>
+              <button type="button" class="btn ghost" data-timer="${ex.id}">Rest ${ex.rest}s</button>
+            </div>
+          </div>
+        </div>`;
+        })
+        .join("");
+
+      // Scroll current into view lightly
+      const openEl = list.querySelector(".exercise.open");
+      if (openEl && current) {
+        requestAnimationFrame(() => openEl.scrollIntoView({ block: "nearest", behavior: "smooth" }));
+      }
+
+      list.querySelectorAll("[data-toggle]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          if (e.target.closest("[data-check]")) {
+            toggleDone(+btn.dataset.toggle);
+            return;
+          }
+          const id = +btn.dataset.toggle;
+          state.session.exercises.forEach((ex) => {
+            ex.open = ex.id === id ? !ex.open : false;
+          });
+          saveState();
+          renderWorkout();
+        });
+      });
+
+      list.querySelectorAll("[data-check]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleDone(+el.dataset.check);
+        });
+      });
+
+      list.querySelectorAll("[data-mark]").forEach((btn) => {
+        btn.addEventListener("click", () => toggleDone(+btn.dataset.mark));
+      });
+
+      list.querySelectorAll("[data-timer]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = +btn.dataset.timer;
+          const input = list.querySelector(`[data-rest="${id}"]`);
+          startRest(+(input?.value || state.session.exercises.find((x) => x.id === id)?.rest || 60));
+        });
+      });
+
+      list.querySelectorAll("[data-field]").forEach((input) => {
+        input.addEventListener("change", () => {
+          const id = +input.dataset.id;
+          const field = input.dataset.field;
+          const ex = state.session.exercises.find((x) => x.id === id);
+          if (!ex) return;
+          ex[field] = input.type === "number" ? +input.value : input.value;
+          saveState();
+        });
+      });
+
+      $("#btnFinish").addEventListener("click", finishSession);
+      $("#btnCancel").addEventListener("click", () => {
+        if (!confirm("Batalkan sesi?")) return;
+        state.session = null;
+        saveState();
+        stopRest();
+        renderWorkout();
+        toast("Sesi dibatalkan");
+      });
+    }
+
+    function toggleDone(id) {
+      const ex = state.session.exercises.find((x) => x.id === id);
+      if (!ex) return;
+      ex.done = !ex.done;
+      if (ex.done) {
+        const next = state.session.exercises.find((x) => !x.done);
+        state.session.exercises.forEach((x) => {
+          x.open = next ? x.id === next.id : false;
+        });
+        startRest(ex.rest);
+      }
+      saveState();
+      renderWorkout();
+    }
+
+    function finishSession() {
+      const s = state.session;
+      if (!s) return;
+      const done = s.exercises.filter((e) => e.done);
+      if (!done.length) return;
+      state.history.unshift({
+        path: s.path,
+        level: s.level,
+        startedAt: s.startedAt,
+        endedAt: new Date().toISOString(),
+        completed: done.length,
+        total: s.exercises.length,
+        notes: done.map((e) => ({
+          name: e.name,
+          sets: e.loggedSets,
+          reps: e.loggedReps,
+          note: e.loggedNote,
+        })),
+      });
+      state.history = state.history.slice(0, 60);
+      state.session = null;
+      saveState();
+      stopRest();
+      toast("Sesi tersimpan");
+      goTab("history");
+      renderHistory();
+    }
+
+    /* —— Rest timer —— */
+    function startRest(seconds) {
+      stopRest();
+      restLeft = Math.max(0, Math.round(seconds));
+      if (restLeft <= 0) return;
+      $("#restBar").classList.add("on");
+      updateRestDisplay();
+      restTimer = setInterval(() => {
+        restLeft -= 1;
+        updateRestDisplay();
+        if (restLeft <= 0) {
+          stopRest();
+          toast("Istirahat selesai");
+          try {
+            if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
+          } catch (_) {}
+        }
+      }, 1000);
+    }
+
+    function updateRestDisplay() {
+      const m = Math.floor(restLeft / 60);
+      const s = restLeft % 60;
+      $("#restTime").textContent = `${m}:${String(s).padStart(2, "0")}`;
+    }
+
+    function stopRest() {
+      clearInterval(restTimer);
+      restTimer = null;
+      $("#restBar").classList.remove("on");
+    }
+
+    $("#restSkip").addEventListener("click", stopRest);
+    $("#restAdd").addEventListener("click", () => {
+      restLeft += 30;
+      if (!restTimer) startRest(restLeft);
+      else updateRestDisplay();
+    });
+
+    /* —— Schedule —— */
+    function renderSchedule() {
+      $("#scheduleOptions").innerHTML = SCHEDULES.map(
+        (sch) => `
+        <label>
+          <input type="radio" name="schedule" value="${sch.id}" ${state.schedule === sch.id ? "checked" : ""} />
+          <div>
+            <strong>${sch.title}</strong>
+            <span>${sch.desc}</span>
+          </div>
+        </label>`
+      ).join("");
+
+      $("#scheduleOptions").querySelectorAll("input").forEach((input) => {
+        input.addEventListener("change", () => {
+          state.schedule = input.value;
+          saveState();
+          renderSchedule();
+        });
+      });
+
+      const sch = SCHEDULES.find((s) => s.id === state.schedule) || SCHEDULES[1];
+      $("#weekPreview").innerHTML = `
+        <div class="week-chip-row">
+          ${sch.week.map((d, i) => `<div class="week-chip"><strong>${DAYS[i]}</strong>${d}</div>`).join("")}
+        </div>`;
+
+      $("#baselineBlock").innerHTML = `
+        <details class="fold">
+          <summary>Baseline muscle-up</summary>
+          <div class="fold-body">
+            <ul class="baseline">
+              ${BASELINE.map(
+                (b) => `
+                <li>
+                  <input type="checkbox" id="bl-${b.id}" ${state.baseline[b.id] ? "checked" : ""} data-bl="${b.id}" />
+                  <label for="bl-${b.id}">${b.label}</label>
+                </li>`
+              ).join("")}
+            </ul>
+            <p style="font-size:0.78rem;color:var(--ink-soft);margin:0.5rem 0 0">
+              Prioritas: <strong>Pull → Dips → Teknik</strong>
+            </p>
+          </div>
+        </details>`;
+
+      $("#baselineBlock").querySelectorAll("[data-bl]").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          state.baseline[cb.dataset.bl] = cb.checked;
+          saveState();
+        });
+      });
+    }
+
+    /* —— History —— */
+    function renderHistory() {
+      const list = $("#historyList");
+      if (!state.history.length) {
+        list.innerHTML = `<p class="empty">Belum ada sesi tersimpan. Mulai dari tab Jalur.</p>`;
+        return;
+      }
+      list.innerHTML = state.history
+        .slice(0, 20)
+        .map((h) => {
+          const prog = PROGRAMS[h.path];
+          return `
+            <div class="log-item">
+              <time>${formatDate(h.endedAt)}</time>
+              <div><strong>${prog?.name || h.path}</strong> L${h.level} · ${h.completed}/${h.total}</div>
+            </div>`;
+        })
+        .join("");
+    }
+
+    $("#btnReset").addEventListener("click", () => {
+      if (!confirm("Hapus semua progress, riwayat, dan sesi?")) return;
+      state = defaultState();
+      saveState();
+      stopRest();
+      renderHome();
+      renderHistory();
+      toast("Data direset");
+    });
+
+    /* —— Resume open session —— */
+    renderHome();
+    if (state.session) {
+      // keep session available on workout tab
+    }
+  </script>
+</body>
+</html>

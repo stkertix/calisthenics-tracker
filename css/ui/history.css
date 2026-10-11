@@ -1,8 +1,141 @@
 /* Tab Log */
+
+.log-calendar {
+  border: 2px solid var(--ink);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.55rem 0.55rem 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.log-cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.log-cal-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.log-cal-nav {
+  border: 1.5px solid var(--ink);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1;
+  min-width: 40px;
+  min-height: 40px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.log-cal-nav:active {
+  background: var(--yellow);
+}
+
+.log-cal-weekdays,
+.log-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.2rem;
+}
+
+.log-cal-weekdays {
+  margin-bottom: 0.25rem;
+}
+
+.log-cal-weekdays span {
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0.15rem 0;
+}
+
+.log-cal-day {
+  aspect-ratio: 1;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+  min-height: 36px;
+}
+
+.log-cal-day:disabled {
+  opacity: 0;
+  cursor: default;
+}
+
+.log-cal-day.muted {
+  color: var(--ink-soft);
+  opacity: 0.45;
+}
+
+.log-cal-day.today {
+  border-color: var(--ink);
+}
+
+.log-cal-day.has-log {
+  background: rgba(245, 208, 0, 0.35);
+}
+
+.log-cal-day.selected {
+  background: var(--yellow);
+  border-color: var(--ink);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.log-cal-dot {
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 0;
+  background: var(--signal);
+  border: 1px solid var(--ink);
+}
+
+.log-cal-day.selected .log-cal-dot,
+.log-cal-day.has-log .log-cal-dot {
+  background: var(--ink);
+}
+
+.log-day-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin: 0 0 0.35rem;
+}
+
 .log-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   border-bottom: 1px solid var(--line);
   padding: 0.5rem 0;
   font-size: 0.84rem;
+}
+.log-item-main {
+  flex: 1;
+  min-width: 0;
 }
 .log-item time {
   font-weight: 700;
@@ -10,6 +143,23 @@
   margin-bottom: 0.1rem;
   font-size: 0.75rem;
   color: var(--ink-soft);
+}
+.log-item-del {
+  flex: 0 0 auto;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1;
+  min-width: 40px;
+  min-height: 40px;
+  cursor: pointer;
+  padding: 0;
+}
+.log-item-del:active {
+  border-color: var(--alert);
+  color: var(--alert);
+  background: rgba(184, 74, 43, 0.1);
 }
 .empty {
   color: var(--ink-soft);
